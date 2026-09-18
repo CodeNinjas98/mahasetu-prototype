@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MahaSetu — Interoperability Prototype</title>
+<style>
+:root{
+  --brand:#344F1F; --brand2:#4A6B2A; --accent:#F4991A; --ainc:#2A2510;
+  --green:#1B8A4A; --green-bg:#E3F2E8; --amber:#B8720A; --amber-bg:#FBF0DD; --red:#C0392B; --red-bg:#FBEAE8;
+  --bg:#F9F5F0; --card:#F2EAD3; --ink:#2A2510; --muted:#7A7156; --border:#E3D6BE; --radius:10px;
+}
+*{box-sizing:border-box;}
+html{background:#F9F5F0;color-scheme:only light;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;}
+.stripe{display:flex;height:10px;}
+.stripe span{flex:1;}
+.topbar{background:var(--brand);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:10;}
+.brand{font-weight:700;font-size:1.05rem;}
+.brand small{display:block;font-weight:400;font-size:.68rem;color:#D8E0C8;}
+.tag{margin-left:auto;font-size:.68rem;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px;}
+.corr{font-size:.72rem;background:var(--brand2);padding:4px 10px;border-radius:6px;font-family:ui-monospace,monospace;display:none;}
+.bell{background:transparent;border:none;color:#fff;font-size:1rem;cursor:pointer;position:relative;padding:2px 4px;}
+.notifdot{position:absolute;top:-2px;right:-2px;background:var(--accent);color:var(--ainc);font-size:.6rem;font-weight:700;border-radius:50%;padding:1px 5px;}
+.notif-panel{display:none;position:fixed;top:56px;right:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;width:250px;max-height:280px;overflow-y:auto;z-index:45;box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.notif-panel .ni{font-size:.78rem;padding:7px 0;border-bottom:1px solid var(--border);}
+.notif-panel .ni:last-child{border-bottom:none;}
+.trace{display:none;background:var(--brand2);padding:8px 20px;overflow-x:auto;white-space:nowrap;}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;color:#E4EAD5;background:rgba(255,255,255,.1);padding:4px 9px;border-radius:20px;margin-right:6px;}
+.chip.done{background:var(--green);color:#fff;}
+.chip.fail{background:var(--red);color:#fff;}
+main{max-width:760px;margin:0 auto;padding:18px 16px 90px;background:var(--bg);min-height:80vh;}
+.view{display:none;}
+.view.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;}}
+h1{font-size:1.3rem;margin:0 0 4px;color:var(--brand);border-bottom:2px solid var(--accent);padding-bottom:6px;display:inline-block;}
+.pstag{display:inline-block;font-size:.65rem;background:var(--card);border:1px solid var(--accent);color:var(--brand);padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle;}
+p.lead{color:var(--muted);font-size:.86rem;margin:0 0 6px;}
+.card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius);padding:16px;margin-bottom:12px;}
+.role-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px;}
+@media(min-width:480px){.role-grid{grid-template-columns:1fr 1fr 1fr;}}
+.role-btn{background:var(--card);border-top:4px solid var(--accent);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);}
+.role-btn b{display:block;font-size:.95rem;}
+.role-btn span{color:var(--muted);font-size:.78rem;}
+.role-btn:hover{border-color:var(--accent);}
+.disclaimer{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);border-radius:8px;padding:9px 12px;font-size:.76rem;margin-top:16px;}
+.btn{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:.85rem;cursor:pointer;font-weight:600;}
+.btn:hover{background:var(--brand2);}
+.btn.acc{background:var(--accent);color:var(--ainc);}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--ink);}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.badge{font-size:.7rem;padding:2px 9px;border-radius:20px;font-weight:600;}
+.badge.ok{background:var(--green-bg);color:var(--green);}
+.badge.warn{background:var(--amber-bg);color:var(--amber);}
+.badge.bad{background:var(--red-bg);color:var(--red);}
+.idgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px;}
+.idbox{background:#F9F5F0;border:1px solid var(--border);border-top:3px solid var(--brand);border-radius:8px;padding:10px;font-size:.78rem;}
+.idbox b{display:block;font-size:.85rem;}
+.consent-item{background:#F9F5F0;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:8px;padding:12px;margin-bottom:10px;}
+.consent-item h3{margin:0 0 4px;font-size:.9rem;}
+.consent-item p{margin:0 0 8px;color:var(--muted);font-size:.78rem;}
+.block-banner{background:var(--red-bg);color:var(--red);border:1px solid var(--red);border-radius:8px;padding:10px 12px;font-size:.82rem;margin:10px 0;display:none;}
+.ok-banner{background:var(--green-bg);color:var(--green);border:1px solid var(--green);border-radius:8px;padding:10px 12px;font-size:.82rem;margin:10px 0;display:none;}
+pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;font-size:.72rem;overflow-x:auto;font-family:ui-monospace,monospace;}
+.flow{display:flex;flex-direction:column;gap:6px;}
+.step{display:flex;align-items:center;gap:8px;font-size:.82rem;padding:6px 0;}
+.dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex:0 0 18px;display:flex;align-items:center;justify-content:center;font-size:.65rem;}
+.dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.dot.pending{border-color:var(--accent);}
+.nav{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:6px;border-bottom:2px solid var(--card);}
+.nav button{flex:0 0 auto;font-size:.76rem;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;}
+.nav button.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+.toast{position:fixed;top:70px;right:14px;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-size:.8rem;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:50;opacity:0;transition:opacity .3s;}
+.toast.show{opacity:1;}
+.demo-fab{position:fixed;bottom:16px;right:16px;background:var(--accent);color:var(--ainc);border:none;border-radius:24px;padding:10px 16px;font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:40;}
+.demo-panel{position:fixed;bottom:64px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;width:230px;display:none;z-index:40;box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.demo-panel button{width:100%;margin-bottom:6px;font-size:.75rem;padding:7px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;text-align:left;}
+.sysrow{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding:8px 0;font-size:.82rem;}
+.sysrow:last-child{border-bottom:none;}
+.excard{border-left:4px solid var(--red)!important;margin-bottom:10px;}
+table#auditTable{width:100%;font-size:.72rem;border-collapse:collapse;margin-top:8px;}
+table#auditTable th{background:var(--brand);color:#fff;padding:6px;text-align:left;}
+table#auditTable td{padding:5px 6px;border-bottom:1px solid var(--border);text-align:left;}
+table#auditTable tr:nth-child(even) td{background:#F9F5F0;}
+
+.stepper{display:flex;gap:4px;margin-bottom:12px;}
+.stepper div{flex:1;height:5px;border-radius:3px;background:var(--border);}
+.stepper div.on{background:var(--accent);}
+.stepnum{font-size:.72rem;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
+.why{background:#F9F5F0;border-left:3px solid var(--brand);padding:8px 10px;font-size:.8rem;color:var(--muted);border-radius:6px;margin:0 0 12px;}
+details.tech{margin-top:10px;}
+details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-weight:600;padding:6px 0;}
+.navgrp{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;align-self:center;padding:0 4px;font-weight:700;}
+.bignum{font-size:1.5rem;font-weight:700;color:var(--brand);line-height:1.1;}
+.syslogo{display:inline-flex;width:26px;height:26px;border-radius:6px;background:var(--brand);color:#fff;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;margin-right:8px;}
+.hint{position:fixed;bottom:62px;right:16px;background:var(--brand);color:#fff;font-size:.7rem;padding:6px 10px;border-radius:8px;z-index:39;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">MahaSetu <small>SIH 26129 · Student Prototype</small></div>
+  <div class="corr" id="roleBadge"></div>
+  <div class="corr" id="corrBadge"></div>
+  <button class="bell" id="bellBtn" onclick="toggleNotif()">🔔<span class="notifdot" id="notifCount" style="display:none;">0</span></button>
+  <div class="tag">Synthetic data · Mock APIs</div>
+</div>
+<div class="stripe"><span style="background:#F9F5F0;"></span><span style="background:#F2EAD3;"></span><span style="background:#F4991A;"></span><span style="background:#344F1F;"></span></div>
+<div class="trace" id="trace"></div>
+<div class="notif-panel" id="notifPanel"></div>
+
+<main>
+
+<section class="view active" id="v-login">
+  <h1>MahaSetu</h1>
+  <p class="lead">Secure Government Digital Interoperability Platform<br>"Connect once. Share securely. Deliver seamlessly."</p>
+  <p style="font-size:.82rem;color:var(--muted);margin:0 0 16px;">MahaDBT, Aaple Sarkar and MahaSwayam don't talk to each other today — citizens repeat the same information across all three. MahaSetu connects them without replacing them.</p>
+  <div class="role-grid">
+    <button class="role-btn" onclick="login('citizen')"><b>Citizen Login</b><span>Request services, manage consent, track applications</span></button>
+    <button class="role-btn" onclick="login('official')"><b>Official Login</b><span>Process cases, advance workflows</span></button>
+    <button class="role-btn" onclick="login('admin')"><b>Admin Login</b><span>Systems, connectors, monitoring</span></button>
+  </div>
+  <div class="disclaimer">⚠ Prototype environment — this is not an official Government of Maharashtra platform. No production access. All records and APIs are synthetic or mocked.</div>
+</section>
+
+<section class="view" id="v-dash">
+  <div class="nav" id="navBar"></div>
+  <h1>My Dashboard</h1>
+  <p class="why">Welcome back. Your identity is already linked across all three departments, so services can be requested in one go.</p>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <div><b>Rahul Kumar</b><br><span style="color:var(--muted);font-size:.8rem;">Master ID: P-1001</span></div>
+      <span class="badge ok">Identity Resolved</span>
+    </div>
+    <div class="idgrid">
+      <div class="idbox"><b>MahaDBT</b>STU-101</div>
+      <div class="idbox"><b>Aaple Sarkar</b>APP-782</div>
+      <div class="idbox"><b>MahaSwayam</b>CAN-55</div>
+    </div>
+  </div>
+  <div class="card">
+    <b>Available service</b>
+    <p style="color:var(--muted);font-size:.82rem;margin:6px 0 12px;">One cross-department journey — no need to visit three portals separately.</p>
+    <button class="btn acc" onclick="go('v-cat')">Browse Service Catalogue →</button>
+  </div>
+</section>
+
+<section class="view" id="v-cat">
+  <div class="nav" id="navBar2"></div>
+  <h1>Services<span class="pstag">API exchange · P0</span></h1>
+  <p class="why">Pick a service once. We'll collect what's needed from each department for you — you won't re-type anything.</p>
+  <div class="card">
+    <h3 style="margin:0 0 4px;">Integrated Skill & Employment Assistance</h3>
+    <p style="color:var(--muted);font-size:.82rem;">Pulls education, certificate/income and skills data from three departments into one application — you enter nothing twice.</p>
+    <table style="width:100%;font-size:.78rem;border-collapse:collapse;margin-top:10px;">
+      <tr style="color:var(--muted);"><td>Education</td><td>MahaDBT</td></tr>
+      <tr style="color:var(--muted);"><td>Certificate / income</td><td>Aaple Sarkar</td></tr>
+      <tr style="color:var(--muted);"><td>Skills</td><td>MahaSwayam</td></tr>
+    </table>
+    <p style="font-size:.76rem;color:var(--amber);margin-top:8px;">🔒 Requires consent before any cross-system data is fetched.</p>
+    <button class="btn acc" style="margin-top:8px;" onclick="requestService()">Request this service</button>
+  </div>
+</section>
+
+<section class="view" id="v-consent">
+  <div class="nav" id="navBar3"></div>
+  <h1>Your Permissions<span class="pstag">Consent-based sharing · P0</span></h1>
+  <p class="why">Each department below needs your permission before we can look anything up. Deny any one and that request is blocked — nothing is fetched without your approval.</p>
+  <div id="consentList"></div>
+  <div class="block-banner" id="blockBanner">🔒 Connector request blocked — reason: valid consent required.</div>
+  <div class="ok-banner" id="okBanner">✓ Consent verified · ✓ Connector requests authorized</div>
+  <button class="btn" id="proceedBtn" disabled onclick="go('v-mdm')">Continue to Identity Resolution →</button>
+</section>
+
+<section class="view" id="v-mdm">
+  <div class="nav" id="navBar4"></div>
+  <h1>Your Identity<span class="pstag">Master-data management · P0</span></h1>
+  <p class="why">You exist under a different ID in each department. This is how we confirm all three records belong to the same person — you.</p>
+  <div class="card">
+    <b>Master person</b>
+    <div class="idgrid" style="margin-top:8px;"><div class="idbox"><b>P-1001</b>Rahul Kumar</div></div>
+    <p style="font-size:.78rem;color:var(--muted);margin:10px 0 6px;">Linked external identities</p>
+    <div class="idgrid">
+      <div class="idbox"><b>MahaDBT</b>STU-101<br><span class="badge ok" style="margin-top:6px;display:inline-block;">98% match</span></div>
+      <div class="idbox"><b>Aaple Sarkar</b>APP-782<br><span class="badge ok" style="margin-top:6px;display:inline-block;">96% match</span></div>
+      <div class="idbox"><b>MahaSwayam</b>CAN-55<br><span class="badge warn" style="margin-top:6px;display:inline-block;">Review — 81%</span></div>
+    </div>
+  </div>
+  <button class="btn acc" onclick="go('v-exchange')">Continue to Data Exchange →</button>
+</section>
+
+<section class="view" id="v-exchange">
+  <div class="nav" id="navBar5"></div>
+  <h1>Data Check<span class="pstag">Common data standards · P0</span></h1>
+  <p class="why">The three departments store your information in completely different formats. We fetch each one, check it for errors, and convert it into a single consistent record.</p>
+  <button class="btn acc" id="fetchBtn" onclick="runExchange()">Fetch from all 3 systems</button>
+  <div id="exchangeOut" style="margin-top:12px;"></div>
+</section>
+
+<section class="view" id="v-tracker">
+  <div class="nav" id="navBar6"></div>
+  <h1>My Application<span class="pstag">Unified tracking · P0</span></h1>
+  <p class="why">One place to see where your request stands across all three departments — no need to check three portals.</p>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;"><b>MS-APP-1001</b><span class="badge ok" id="trackerStatus">In process</span></div>
+    <p style="color:var(--muted);font-size:.8rem;">Integrated Skill & Employment Assistance</p>
+    <div class="flow" id="trackerFlow"></div>
+  </div>
+</section>
+
+<section class="view" id="v-audit">
+  <div class="nav" id="navBar7"></div>
+  <h1>Exception &amp; Audit Trail<span class="pstag">Audit logs · P0</span></h1>
+  <p class="lead">Every action is traceable by correlation ID.</p>
+  <div id="excList"></div>
+  <div class="card">
+    <b>Audit log</b>
+    <table id="auditTable"><thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Result</th><th>Correlation</th></tr></thead><tbody id="auditBody"></tbody></table>
+  </div>
+</section>
+
+<section class="view" id="v-arch">
+  <div class="nav" id="navBar8"></div>
+  <h1>Architecture</h1>
+  <p class="lead">MahaSetu connects existing systems — it does not replace them.</p>
+  <div class="card" style="text-align:center;">
+    <div class="idbox">Citizen / Official / Admin</div>
+    <div style="margin:6px 0;color:var(--muted);">↓</div>
+    <div class="idbox"><b>Unified Frontend</b></div>
+    <div style="margin:6px 0;color:var(--muted);">↓</div>
+    <div class="idbox"><b>API Gateway</b><br><span style="font-size:.72rem;color:var(--muted);">auth · RBAC · routing · correlation ID</span></div>
+    <div style="margin:6px 0;color:var(--muted);">↓</div>
+    <div class="idbox"><b>Interoperability Core</b><br><span style="font-size:.72rem;color:var(--muted);">consent · MDM · validation · canonical model · mapping · workflow · audit</span></div>
+    <div style="margin:6px 0;color:var(--muted);">↓</div>
+    <div class="idgrid">
+      <div class="idbox"><b>MahaDBT Connector</b><br><span style="font-size:.72rem;color:var(--muted);">XML/SOAP-like</span></div>
+      <div class="idbox"><b>Aaple Sarkar Connector</b><br><span style="font-size:.72rem;color:var(--muted);">REST/JSON</span></div>
+      <div class="idbox"><b>MahaSwayam Connector</b><br><span style="font-size:.72rem;color:var(--muted);">REST/nested JSON</span></div>
+    </div>
+  </div>
+  <p style="font-size:.78rem;color:var(--muted);">Middleware talks to portal APIs only — DB1, DB2 and DB3 stay independent; DB4 is MahaSetu's own platform database.</p>
+</section>
+
+<section class="view" id="v-impact">
+  <div class="nav" id="navBar9"></div>
+  <h1>Impact</h1>
+  <p class="lead">Synthetic prototype metrics — not live Government of Maharashtra statistics.</p>
+  <div class="idgrid">
+    <div class="idbox"><b class="bignum">3 → 1</b>Portals visited per journey</div>
+    <div class="idbox"><b class="bignum">1×</b>Data entered, vs. 3× before</div>
+    <div class="idbox"><b class="bignum">100%</b>Stages carrying a correlation ID</div>
+    <div class="idbox"><b class="bignum">97.6%</b>Successful exchanges (synthetic run)</div>
+  </div>
+</section>
+
+<section class="view" id="v-official">
+  <h1>Case Queue</h1>
+  <p class="lead">Cases requiring official action.</p>
+  <div class="card">
+    <div class="sysrow"><div><b>Rahul Kumar</b><br><span style="color:var(--muted);">Integrated Skill &amp; Employment</span></div><div class="row"><span class="badge ok">In process</span><button class="btn ghost" style="padding:6px 10px;" onclick="toast('Workflow advanced — citizen notified')">Advance</button></div></div>
+    <div class="sysrow"><div><b>Priya Shinde</b><br><span style="color:var(--muted);">Certificate Verification</span></div><span class="badge warn">Pending consent</span></div>
+    <div class="sysrow"><div><b>Amit Joshi</b><br><span style="color:var(--muted);">Education Benefit</span></div><span class="badge bad">Exception</span></div>
+  </div>
+  <div class="row"><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="go('v-login')">Log out</button></div>
+</section>
+
+<section class="view" id="v-admin">
+  <h1>System Registry &amp; Monitoring</h1>
+  <p class="lead">Synthetic Prototype Metrics — not live Government of Maharashtra statistics.</p>
+  <div class="card">
+    <div class="sysrow"><b>MahaDBT</b><span style="color:var(--muted);">XML/SOAP-like</span><span class="badge ok">Healthy · 92ms</span></div>
+    <div class="sysrow"><b>Aaple Sarkar</b><span style="color:var(--muted);">REST/JSON</span><span class="badge ok">Healthy · 61ms</span></div>
+    <div class="sysrow"><b>MahaSwayam</b><span style="color:var(--muted);">REST/nested JSON</span><span class="badge ok">Healthy · 74ms</span></div>
+  </div>
+  <div class="card row" style="justify-content:space-between;">
+    <div><b>1,248</b><br><span style="color:var(--muted);font-size:.75rem;">Requests today</span></div>
+    <div><b>97.6%</b><br><span style="color:var(--muted);font-size:.75rem;">Success rate</span></div>
+    <div><b id="excCount2">0</b><br><span style="color:var(--muted);font-size:.75rem;">Pending exceptions</span></div>
+  </div>
+  <div class="row"><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="go('v-login')">Log out</button></div>
+</section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="hint" id="demoHint">Start here for a guided demo ↓</div>
+<button class="demo-fab" onclick="togglePanel()">Demo Mode</button>
+<div class="demo-panel" id="demoPanel">
+  <button onclick="resetDemo()">↺ Reset demo</button>
+  <button onclick="runAuto()">▶ Run successful journey</button>
+  <button onclick="simDeny()">Simulate consent denied</button>
+  <button onclick="simExpired()">Simulate expired consent</button>
+  <button onclick="simXmlFail()">Simulate MahaDBT timeout</button>
+  <button onclick="simValFail()">Simulate validation failure</button>
+</div>
+
+<script>
+const views=['v-login','v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker','v-audit','v-arch','v-impact','v-official','v-admin'];
+const navLabels={'v-dash':'My Dashboard','v-cat':'Services','v-consent':'Permissions','v-mdm':'Identity','v-exchange':'Data Check','v-tracker':'My Application','v-audit':'Audit','v-arch':'Architecture','v-impact':'Impact'};
+const citizenNav=['v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
+const staffNav=['v-audit','v-arch','v-impact'];
+let currentRole='citizen';
+const stepOrder=['v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
+let state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
+let exceptions=[],auditLog=[],notifications=[];
+
+function buildNav(){
+  ['navBar','navBar2','navBar3','navBar4','navBar5','navBar6','navBar7','navBar8','navBar9'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return; el.innerHTML='';
+    const show = currentRole==='citizen' ? citizenNav : citizenNav.concat(staffNav);
+    show.forEach(v=>{
+      const b=document.createElement('button'); b.textContent=navLabels[v]; b.onclick=()=>go(v); el.appendChild(b);
+    });
+  });
+}
+function go(id){
+  views.forEach(v=>document.getElementById(v).classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.textContent===navLabels[id]));
+  const si=stepOrder.indexOf(id);
+  document.querySelectorAll('.stepwrap').forEach(w=>w.remove());
+  if(si>-1){
+    const sec=document.getElementById(id);
+    const nav=sec.querySelector('.nav');
+    const w=document.createElement('div'); w.className='stepwrap';
+    w.innerHTML='<div class="stepnum">Step '+(si+1)+' of 5</div><div class="stepper">'+stepOrder.map((_,i)=>'<div class="'+(i<=si?'on':'')+'"></div>').join('')+'</div>';
+    if(nav) nav.after(w); else sec.prepend(w);
+  }
+  window.scrollTo(0,0);
+}
+function login(role){
+  currentRole=role; buildNav();
+  logAudit(role.charAt(0).toUpperCase()+role.slice(1),'Login','SUCCESS');
+  document.getElementById('roleBadge').style.display='inline-block';
+  document.getElementById('roleBadge').textContent=role.charAt(0).toUpperCase()+role.slice(1);
+  if(role==='citizen') go('v-dash'); else if(role==='official') go('v-official'); else go('v-admin');
+  toast('Logged in as '+role);
+}
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+  notifications.unshift({t:new Date().toLocaleTimeString(),m:msg});
+  document.getElementById('notifCount').style.display='inline-block';
+  document.getElementById('notifCount').textContent=notifications.length;
+  renderNotif();
+}
+function toggleNotif(){ const p=document.getElementById('notifPanel'); p.style.display=p.style.display==='block'?'none':'block'; renderNotif(); }
+function renderNotif(){
+  const p=document.getElementById('notifPanel');
+  p.innerHTML=notifications.length? notifications.slice(0,12).map(n=>`<div class="ni"><b>${n.t}</b><br>${n.m}</div>`).join('') : '<div class="ni">No notifications yet.</div>';
+}
+function logAudit(actor,action,result){
+  const row={t:new Date().toLocaleTimeString(),actor,action,result,c:state.corrId||'—'};
+  auditLog.unshift(row);
+  const tb=document.getElementById('auditBody');
+  const cls=result==='SUCCESS'?'ok':result==='BLOCKED'||result==='FAILED'?'bad':'warn';
+  tb.insertAdjacentHTML('afterbegin',`<tr><td>${row.t}</td><td>${actor}</td><td>${action}</td><td><span class="badge ${cls}">${result}</span></td><td>${row.c}</td></tr>`);
+}
+function raiseException(type,connector,msg){
+  const id='EX-'+(1000+exceptions.length+42);
+  exceptions.unshift({id,type,connector,msg});
+  renderExc();
+  document.getElementById('excCount2').textContent=exceptions.length;
+}
+function resolveExc(id){ exceptions=exceptions.filter(e=>e.id!==id); renderExc(); document.getElementById('excCount2').textContent=exceptions.length; toast(id+' resolved'); }
+function renderExc(){
+  const el=document.getElementById('excList'); if(!el) return;
+  el.innerHTML=exceptions.length? exceptions.map(e=>`<div class="card excard"><div class="row" style="justify-content:space-between;"><b>${e.id}</b><span class="badge bad">${e.type}</span></div><p style="font-size:.8rem;color:var(--muted);margin:6px 0;">Connector: ${e.connector} · ${e.msg} · Correlation: ${state.corrId||'—'}</p><button class="btn ghost" style="padding:6px 10px;" onclick="resolveExc('${e.id}')">Resolve</button></div>`).join('') : '<p style="color:var(--muted);font-size:.85rem;">No active exceptions.</p>';
+}
+function newCorrId(){ return 'MS-2026-'+Math.floor(100000+Math.random()*899999); }
+const traceSteps=['Gateway','Consent','MDM','Connector','Validation','Canonical','Workflow','Audit'];
+function initTrace(){
+  const t=document.getElementById('trace'); t.style.display='block';
+  t.innerHTML=traceSteps.map(s=>`<span class="chip" id="chip-${s}">${s}</span>`).join('');
+  document.getElementById('corrBadge').style.display='inline-block';
+  document.getElementById('corrBadge').textContent='Correlation ID: '+state.corrId;
+}
+function markTrace(step,fail){
+  const c=document.getElementById('chip-'+step); if(!c) return;
+  c.classList.add(fail?'fail':'done'); c.textContent=(fail?'✕ ':'✓ ')+step;
+}
+function requestService(){
+  state.corrId=newCorrId(); initTrace(); markTrace('Gateway');
+  logAudit('Citizen','Service requested','SUCCESS');
+  toast('Correlation ID issued: '+state.corrId);
+  renderConsent(); go('v-consent');
+}
+function renderConsent(){
+  const items=[
+    {k:'mahadbt',sys:'MahaDBT',purpose:'Verify education record',fields:'studentId, courseName'},
+    {k:'aaple',sys:'Aaple Sarkar',purpose:'Verify certificate & income',fields:'certificateNo, income'},
+    {k:'mahaswayam',sys:'MahaSwayam',purpose:'Retrieve skills',fields:'skills, candidate.id'}
+  ];
+  const list=document.getElementById('consentList'); list.innerHTML='';
+  items.forEach(it=>{
+    const div=document.createElement('div'); div.className='consent-item';
+    div.innerHTML=`<h3>${it.sys}</h3><p>Purpose: ${it.purpose} · Fields: ${it.fields} · Expires in 30 days</p>
+      <div class="row"><button class="btn" style="padding:6px 12px;" onclick="setConsent('${it.k}',true)">Approve</button>
+      <button class="btn ghost" style="padding:6px 12px;" onclick="setConsent('${it.k}',false)">Deny</button>
+      <span class="badge" id="badge-${it.k}"></span></div>`;
+    list.appendChild(div);
+  });
+  document.getElementById('blockBanner').style.display='none';
+  document.getElementById('okBanner').style.display='none';
+  document.getElementById('proceedBtn').disabled=true;
+  if(state.expiredDemo){
+    setTimeout(()=>{
+      document.getElementById('badge-aaple').textContent='Expired';
+      document.getElementById('badge-aaple').className='badge bad';
+      state.consents.aaple=false;
+      document.getElementById('blockBanner').style.display='block';
+      markTrace('Consent',true);
+      raiseException('EXPIRED_CONSENT','Aaple Sarkar','Consent expired before exchange');
+      logAudit('System','Consent check','BLOCKED');
+      toast('Consent expired — citizen must re-approve');
+      state.expiredDemo=false;
+    },300);
+  }
+}
+function setConsent(k,val){
+  state.consents[k]=val;
+  const b=document.getElementById('badge-'+k);
+  b.textContent=val?'Approved':'Denied'; b.className='badge '+(val?'ok':'bad');
+  const vals=Object.values(state.consents);
+  if(vals.includes(false)){
+    document.getElementById('blockBanner').style.display='block';
+    document.getElementById('okBanner').style.display='none';
+    document.getElementById('proceedBtn').disabled=true;
+    markTrace('Consent',true);
+    logAudit('System','Consent check','BLOCKED');
+    if(val===false) raiseException('CONSENT_DENIED','Aaple Sarkar','Citizen denied consent');
+    toast('Exception logged — consent denied');
+  } else if(vals.every(v=>v===true)){
+    document.getElementById('okBanner').style.display='block';
+    document.getElementById('blockBanner').style.display='none';
+    document.getElementById('proceedBtn').disabled=false;
+    markTrace('Consent'); markTrace('MDM');
+    logAudit('System','Consent check','SUCCESS');
+  }
+}
+function runExchange(){
+  document.getElementById('fetchBtn').disabled=true;
+  const out=document.getElementById('exchangeOut'); out.innerHTML='';
+  const steps=[
+    {sys:'MahaDBT',type:'XML / SOAP-like',body:'<StudentRecord>\n  <studentId>STU-101</studentId>\n  <studentName>Rahul Kumar</studentName>\n  <courseName>B.Tech CSE</courseName>\n</StudentRecord>'},
+    {sys:'Aaple Sarkar',type:'Flat REST JSON',body: state.valFailMode? '{\n  "certificateNo": "CERT-2026-77",\n  "income": -5000,\n  "status": "VERIFIED"\n}' : '{\n  "certificateNo": "CERT-2026-77",\n  "income": 250000,\n  "status": "VERIFIED"\n}'},
+    {sys:'MahaSwayam',type:'Nested REST JSON',body:'{\n  "candidate": { "id": "CAN-55", "skills": ["Java","SQL"] },\n  "applicationId": "MS-901"\n}'}
+  ];
+  let delay=0;
+  steps.forEach((s,i)=>{
+    setTimeout(()=>{
+      const isXml=s.sys==='MahaDBT';
+      if(isXml && state.xmlFailMode){
+        const d=document.createElement('div'); d.className='card';
+        d.innerHTML=`<b>${s.sys}</b> <span class="badge warn">retry 1/3 — 504 timeout</span>`;
+        out.appendChild(d);
+        setTimeout(()=>{ d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge ok">Recovered on retry</span></div><details class="tech"><summary>View technical detail</summary><pre>${s.body}</pre></details>`; toast('Transient failure recovered — bounded retry'); logAudit('System','Connector retry (MahaDBT)','SUCCESS'); },900);
+      } else {
+        const d=document.createElement('div'); d.className='card';
+        d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge ok">Received</span></div><details class="tech"><summary>View technical detail (${s.type})</summary><pre>${s.body}</pre></details>`;
+        out.appendChild(d);
+      }
+      if(i===steps.length-1){
+        markTrace('Connector'); logAudit('System','Fetch from 3 connectors','SUCCESS');
+        setTimeout(()=>{
+          const v=document.createElement('div'); v.className='card';
+          if(state.valFailMode){
+            v.innerHTML='<b>Validation</b><br><span class="badge bad" style="margin-top:6px;display:inline-block;">✕ Failed: income must be ≥ 0 (received −5000)</span>';
+            out.appendChild(v);
+            markTrace('Validation',true);
+            raiseException('VALIDATION','Aaple Sarkar','income below 0 — payload rejected');
+            logAudit('System','Validate payload','FAILED');
+            const btn=document.createElement('button'); btn.className='btn ghost'; btn.textContent='View Exception →';
+            btn.onclick=()=>go('v-audit'); out.appendChild(btn);
+            document.getElementById('fetchBtn').disabled=false;
+            state.valFailMode=false;
+            return;
+          }
+          v.innerHTML='<b>Validation</b><br><span class="badge ok" style="margin-top:6px;display:inline-block;">✓ required fields present</span> <span class="badge ok" style="margin-top:6px;display:inline-block;">✓ income numeric &amp; ≥0</span>';
+          out.appendChild(v); markTrace('Validation'); logAudit('System','Validate payload','SUCCESS');
+        },600);
+        if(!state.valFailMode) setTimeout(()=>{
+          const c=document.createElement('div'); c.className='card';
+          c.innerHTML='<b>One combined record</b><br><span style="font-size:.8rem;color:var(--muted);">All three formats merged into a single consistent profile.</span><details class="tech" open><summary>View technical detail (canonical model)</summary><pre>{\n  "person": {"masterId":"P-1001","name":"Rahul Kumar"},\n  "education": {"program":"B.Tech CSE"},\n  "certificate": {"number":"CERT-2026-77","income":250000},\n  "skills": ["Java","SQL"]\n}</pre></details>';
+          out.appendChild(c); markTrace('Canonical'); logAudit('System','Canonical mapping','SUCCESS');
+          const btn=document.createElement('button'); btn.className='btn acc'; btn.textContent='Continue to Tracker →';
+          btn.onclick=()=>{buildTracker();go('v-tracker');};
+          out.appendChild(btn);
+          document.getElementById('fetchBtn').disabled=false;
+        },1300);
+      }
+    }, delay);
+    delay+=700;
+  });
+}
+function buildTracker(){
+  markTrace('Workflow'); markTrace('Audit'); logAudit('System','Workflow complete','SUCCESS');
+  const steps=['Application submitted','Identity verified','Consent approved','Education verified (MahaDBT)','Certificate verified (Aaple Sarkar)','Skills retrieved (MahaSwayam)','Employment application processing','Final notification'];
+  const flow=document.getElementById('trackerFlow'); flow.innerHTML='';
+  steps.forEach((s,i)=>{
+    const row=document.createElement('div'); row.className='step'; const done=i<steps.length-1;
+    row.innerHTML=`<span class="dot ${done?'done':'pending'}">${done?'✓':'○'}</span> ${s}`; flow.appendChild(row);
+  });
+  setTimeout(()=>toast('Notification: your application has moved to employment processing'),400);
+}
+function togglePanel(){ const h=document.getElementById('demoHint'); if(h) h.style.display='none'; const p=document.getElementById('demoPanel'); p.style.display=p.style.display==='block'?'none':'block'; }
+function resetDemo(){
+  state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
+  exceptions=[]; auditLog=[]; notifications=[];
+  document.getElementById('trace').style.display='none';
+  document.getElementById('corrBadge').style.display='none';
+  document.getElementById('roleBadge').style.display='none';
+  document.getElementById('notifCount').style.display='none';
+  document.getElementById('auditBody').innerHTML=''; renderExc(); renderNotif();
+  document.getElementById('excCount2').textContent='0';
+  go('v-login'); togglePanel(); toast('Demo reset');
+}
+function simDeny(){ togglePanel(); go('v-cat'); requestService(); setTimeout(()=>{setConsent('mahadbt',true);setConsent('aaple',false);},400); }
+function simExpired(){ state.expiredDemo=true; togglePanel(); go('v-cat'); requestService(); }
+function simXmlFail(){ state.xmlFailMode=true; togglePanel(); toast('MahaDBT will time out on next fetch'); }
+function simValFail(){ state.valFailMode=true; togglePanel(); toast('Aaple Sarkar will return invalid income on next fetch'); }
+function runAuto(){
+  togglePanel(); resetDemo();
+  setTimeout(()=>login('citizen'),300);
+  setTimeout(()=>go('v-cat'),900);
+  setTimeout(()=>requestService(),1500);
+  setTimeout(()=>{setConsent('mahadbt',true);setConsent('aaple',true);setConsent('mahaswayam',true);},2400);
+  setTimeout(()=>go('v-mdm'),3200);
+  setTimeout(()=>go('v-exchange'),4200);
+  setTimeout(()=>runExchange(),4800);
+}
+buildNav(); renderExc(); renderNotif();
+</script>
+</body>
+</html>
