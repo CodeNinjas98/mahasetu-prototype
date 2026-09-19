@@ -304,6 +304,7 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
 </section>
 
 <section class="view" id="v-official">
+  <div class="nav" id="navBarOfficial"></div>
   <h1>Case Queue</h1>
   <p class="lead">Cases requiring official action.</p>
   <div class="card">
@@ -311,10 +312,10 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
     <div class="sysrow"><div><b>Priya Shinde</b><br><span style="color:var(--muted);">Certificate Verification</span></div><span class="badge warn">Pending consent</span></div>
     <div class="sysrow"><div><b>Amit Joshi</b><br><span style="color:var(--muted);">Education Benefit</span></div><span class="badge bad">Exception</span></div>
   </div>
-  <div class="row"><button class="btn ghost" onclick="go('v-overview')">Overview</button><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="go('v-login')">Log out</button></div>
 </section>
 
 <section class="view" id="v-admin">
+  <div class="nav" id="navBarAdmin"></div>
   <h1>System Registry &amp; Monitoring</h1>
   <p class="lead">Synthetic Prototype Metrics — not live Government of Maharashtra statistics.</p>
   <div class="card">
@@ -327,7 +328,6 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
     <div><b>97.6%</b><br><span style="color:var(--muted);font-size:.75rem;">Success rate</span></div>
     <div><b id="excCount2">0</b><br><span style="color:var(--muted);font-size:.75rem;">Pending exceptions</span></div>
   </div>
-  <div class="row"><button class="btn ghost" onclick="go('v-overview')">Overview</button><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="go('v-login')">Log out</button></div>
 </section>
 
 </main>
@@ -346,20 +346,28 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
 
 <script>
 const views=['v-login','v-overview','v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker','v-audit','v-arch','v-impact','v-official','v-admin'];
-const navLabels={'v-overview':'Overview','v-dash':'My Dashboard','v-cat':'Services','v-consent':'Permissions','v-mdm':'Identity','v-exchange':'Data Check','v-tracker':'My Application','v-audit':'Audit','v-arch':'Architecture','v-impact':'Impact'};
+const navLabels={'v-overview':'Overview','v-dash':'My Dashboard','v-cat':'Services','v-consent':'Permissions','v-mdm':'Identity','v-exchange':'Data Check','v-tracker':'My Application','v-audit':'Audit','v-arch':'Architecture','v-impact':'Impact','v-official':'Case Queue','v-admin':'System Registry','v-login':'Log out'};
 const citizenNav=['v-overview','v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
+const officialNav=['v-official','v-overview','v-arch','v-impact','v-audit','v-login'];
+const adminNav=['v-admin','v-overview','v-arch','v-impact','v-audit','v-login'];
 const staffNav=['v-audit','v-arch','v-impact'];
 let currentRole='citizen';
 const stepOrder=['v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
 let state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
 let exceptions=[],auditLog=[],notifications=[];
 
+function getNavForRole(){
+  if(currentRole==='official') return officialNav;
+  if(currentRole==='admin') return adminNav;
+  return citizenNav;
+}
 function buildNav(){
-  ['navBar','navBar2','navBar3','navBar4','navBar5','navBar6','navBar7','navBar8','navBar9','navBar10'].forEach(id=>{
+  const allNavIds=['navBar','navBar2','navBar3','navBar4','navBar5','navBar6','navBar7','navBar8','navBar9','navBar10','navBarOfficial','navBarAdmin'];
+  allNavIds.forEach(id=>{
     const el=document.getElementById(id); if(!el) return; el.innerHTML='';
-    const show = currentRole==='citizen' ? citizenNav : citizenNav.concat(staffNav);
+    const show=getNavForRole();
     show.forEach(v=>{
-      const b=document.createElement('button'); b.textContent=navLabels[v]; b.onclick=()=>go(v); el.appendChild(b);
+      const b=document.createElement('button'); b.textContent=navLabels[v]; b.onclick=()=>{ if(v==='v-login'){ logout(); return; } go(v); }; el.appendChild(b);
     });
   });
 }
@@ -368,6 +376,7 @@ function go(id){
   if(guarded.includes(id) && !state.corrId){ toast('Start a request from Services first →'); id='v-cat'; }
   views.forEach(v=>document.getElementById(v).classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  buildNav();
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.textContent===navLabels[id]));
   const si=stepOrder.indexOf(id);
   document.querySelectorAll('.stepwrap').forEach(w=>w.remove());
@@ -387,6 +396,20 @@ function login(role){
   document.getElementById('roleBadge').textContent=role.charAt(0).toUpperCase()+role.slice(1);
   if(role==='citizen') go('v-dash'); else if(role==='official') go('v-official'); else go('v-admin');
   toast('Logged in as '+role);
+}
+function logout(){
+  currentRole='citizen';
+  state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
+  exceptions=[]; auditLog=[]; notifications=[];
+  document.getElementById('trace').style.display='none';
+  document.getElementById('corrBadge').style.display='none';
+  document.getElementById('roleBadge').style.display='none';
+  document.getElementById('notifCount').style.display='none';
+  document.getElementById('auditBody').innerHTML=''; renderExc(); renderNotif();
+  document.getElementById('excCount2').textContent='0';
+  buildNav();
+  go('v-login');
+  toast('Logged out');
 }
 function toast(msg){
   const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
