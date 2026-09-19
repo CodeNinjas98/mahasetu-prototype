@@ -20,84 +20,80 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"S
 .brand small{display:block;font-weight:400;font-size:.68rem;color:#D8E0C8;}
 .tag{margin-left:auto;font-size:.68rem;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px;}
 .corr{font-size:.72rem;background:var(--brand2);padding:4px 10px;border-radius:6px;font-family:ui-monospace,monospace;display:none;}
+.linkbtn{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;font-size:.72rem;padding:5px 10px;border-radius:16px;cursor:pointer;}
 .bell{background:transparent;border:none;color:#fff;font-size:1rem;cursor:pointer;position:relative;padding:2px 4px;}
 .notifdot{position:absolute;top:-2px;right:-2px;background:var(--accent);color:var(--ainc);font-size:.6rem;font-weight:700;border-radius:50%;padding:1px 5px;}
 .notif-panel{display:none;position:fixed;top:56px;right:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;width:250px;max-height:280px;overflow-y:auto;z-index:45;box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .notif-panel .ni{font-size:.78rem;padding:7px 0;border-bottom:1px solid var(--border);}
-.notif-panel .ni:last-child{border-bottom:none;}
-.trace{display:none;background:var(--brand2);padding:8px 20px;overflow-x:auto;white-space:nowrap;}
-.chip{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;color:#E4EAD5;background:rgba(255,255,255,.1);padding:4px 9px;border-radius:20px;margin-right:6px;}
-.chip.done{background:var(--green);color:#fff;}
-.chip.fail{background:var(--red);color:#fff;}
 main{max-width:900px;margin:0 auto;padding:clamp(22px,4vw,44px) clamp(18px,4vw,36px) 110px;background:var(--bg);min-height:80vh;}
 @media(min-width:1000px){main{max-width:980px;}}
+body.split main{max-width:1180px;}
 .view{display:none;}
 .view.active{display:block;animation:fade .25s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;}}
 h1{font-size:clamp(1.4rem,2.4vw,1.75rem);font-weight:800;letter-spacing:-.2px;margin:0 0 16px;color:var(--brand);border-bottom:3px solid var(--accent);padding-bottom:10px;display:inline-block;}
 .pstag{display:inline-block;font-size:.68rem;background:var(--card);border:1px solid var(--accent);color:var(--brand);padding:3px 10px;border-radius:20px;margin-left:10px;vertical-align:middle;font-weight:600;}
 p.lead{color:var(--muted);font-size:1rem;line-height:1.6;margin:0 0 10px;}
+.why{background:#F9F5F0;border-left:3px solid var(--brand);padding:12px 14px;font-size:.86rem;line-height:1.55;color:var(--muted);border-radius:8px;margin:0 0 18px;}
 .card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:clamp(18px,2.5vw,26px);margin-bottom:18px;box-shadow:0 2px 8px rgba(52,79,31,.06);}
-.role-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;}
-@media(min-width:480px){.role-grid{grid-template-columns:1fr 1fr 1fr;}}
-.role-btn{background:var(--card);border-top:4px solid var(--accent);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);box-shadow:0 2px 8px rgba(52,79,31,.06);transition:transform .15s,box-shadow .15s;}
-.role-btn b{display:block;font-size:1.05rem;margin-bottom:4px;}
-.role-btn span{color:var(--muted);font-size:.85rem;line-height:1.4;}
-.role-btn:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px rgba(52,79,31,.12);}
-.disclaimer{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);border-radius:10px;padding:14px 16px;font-size:.82rem;line-height:1.5;margin-top:20px;}
-.btn{background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:.9rem;cursor:pointer;font-weight:700;transition:transform .1s;}
-.btn:active{transform:scale(.98);}
-.btn:hover{background:var(--brand2);}
-.btn.acc{background:var(--accent);color:var(--ainc);}
-.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--ink);}
-.btn:disabled{opacity:.45;cursor:not-allowed;}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 .badge{font-size:.72rem;padding:4px 11px;border-radius:20px;font-weight:700;}
 .badge.ok{background:var(--green-bg);color:var(--green);}
 .badge.warn{background:var(--amber-bg);color:var(--amber);}
 .badge.bad{background:var(--red-bg);color:var(--red);}
+.btn{background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-size:.9rem;cursor:pointer;font-weight:700;}
+.btn.acc{background:var(--accent);color:var(--ainc);}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--ink);}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 .idgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:14px;}
 .idbox{background:#F9F5F0;border:1px solid var(--border);border-top:3px solid var(--brand);border-radius:10px;padding:14px;font-size:.82rem;line-height:1.5;}
 .idbox b{display:block;font-size:.85rem;}
-.consent-item{background:#F9F5F0;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:10px;padding:16px;margin-bottom:14px;}
-.consent-item h3{margin:0 0 4px;font-size:.9rem;}
-.consent-item p{margin:0 0 8px;color:var(--muted);font-size:.78rem;}
-.block-banner{background:var(--red-bg);color:var(--red);border:1px solid var(--red);border-radius:8px;padding:10px 12px;font-size:.82rem;margin:10px 0;display:none;}
-.ok-banner{background:var(--green-bg);color:var(--green);border:1px solid var(--green);border-radius:8px;padding:10px 12px;font-size:.82rem;margin:10px 0;display:none;}
-pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;font-size:.72rem;overflow-x:auto;font-family:ui-monospace,monospace;}
+.bignum{font-size:1.5rem;font-weight:700;color:var(--brand);}
+pre{background:#F9F5F0;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:.72rem;overflow-x:auto;font-family:ui-monospace,monospace;}
+details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-weight:600;padding:6px 0;}
 .flow{display:flex;flex-direction:column;gap:6px;}
 .step{display:flex;align-items:center;gap:8px;font-size:.82rem;padding:6px 0;}
 .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex:0 0 18px;display:flex;align-items:center;justify-content:center;font-size:.65rem;}
 .dot.done{background:var(--green);border-color:var(--green);color:#fff;}
-.dot.pending{border-color:var(--accent);}
-.nav{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--card);-webkit-mask-image:linear-gradient(to right,#000 92%,transparent 100%);mask-image:linear-gradient(to right,#000 92%,transparent 100%);}
-.nav button{flex:0 0 auto;font-size:.8rem;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;}
-.nav button.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+table.audit{width:100%;font-size:.78rem;border-collapse:collapse;margin-top:12px;}
+table.audit th{background:var(--brand);color:#fff;padding:10px 8px;text-align:left;}
+table.audit td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;}
 .toast{position:fixed;top:70px;right:14px;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-size:.8rem;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:50;opacity:0;transition:opacity .3s;}
 .toast.show{opacity:1;}
-.demo-fab{position:fixed;bottom:20px;right:20px;background:var(--accent);color:var(--ainc);border:none;border-radius:24px;padding:12px 20px;font-size:.85rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:40;transition:transform .15s;}
-.demo-fab:hover{transform:translateY(-2px);}
-.demo-panel{position:fixed;bottom:64px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;width:230px;display:none;z-index:40;box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.demo-fab{position:fixed;bottom:20px;right:20px;background:var(--accent);color:var(--ainc);border:none;border-radius:24px;padding:12px 20px;font-size:.85rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:40;}
+.demo-panel{position:fixed;bottom:64px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;width:250px;display:none;z-index:55;box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .demo-panel button{width:100%;margin-bottom:6px;font-size:.75rem;padding:7px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;text-align:left;}
+.toggle-row{display:flex;align-items:center;gap:8px;font-size:.78rem;margin-bottom:10px;}
 .sysrow{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding:12px 0;font-size:.86rem;}
 .sysrow:last-child{border-bottom:none;}
 .excard{border-left:4px solid var(--red)!important;margin-bottom:10px;}
-table#auditTable{width:100%;font-size:.78rem;border-collapse:collapse;margin-top:12px;}
-table#auditTable th{background:var(--brand);color:#fff;padding:10px 8px;text-align:left;}
-table#auditTable td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;}
-table#auditTable tr:nth-child(even) td{background:#F9F5F0;}
-
-.stepper{display:flex;gap:4px;margin-bottom:18px;}
-.stepper div{flex:1;height:5px;border-radius:3px;background:var(--border);}
-.stepper div.on{background:var(--accent);}
-.stepnum{font-size:.72rem;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
-.why{background:#F9F5F0;border-left:3px solid var(--brand);padding:12px 14px;font-size:.86rem;line-height:1.55;color:var(--muted);border-radius:8px;margin:0 0 18px;}
-details.tech{margin-top:10px;}
-details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-weight:600;padding:6px 0;}
-.navgrp{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;align-self:center;padding:0 4px;font-weight:700;}
-.bignum{font-size:1.5rem;font-weight:700;color:var(--brand);line-height:1.1;}
-.syslogo{display:inline-flex;width:26px;height:26px;border-radius:6px;background:var(--brand);color:#fff;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;margin-right:8px;}
-.hint{position:fixed;bottom:62px;right:16px;background:var(--brand);color:#fff;font-size:.7rem;padding:6px 10px;border-radius:8px;z-index:39;}
+/* Legacy portal */
+.lp-badge{display:inline-block;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);font-size:.72rem;padding:3px 10px;border-radius:20px;margin-bottom:14px;}
+.lp-field{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:.87rem;}
+.lp-field:last-child{border-bottom:none;}
+.lp-field span:first-child{color:var(--muted);}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,18,8,.55);z-index:70;align-items:center;justify-content:center;padding:16px;}
+.modal-box{background:var(--card);border-radius:14px;max-width:540px;width:100%;max-height:88vh;overflow-y:auto;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.modal-box h2{margin:0 0 10px;font-size:1.1rem;color:var(--brand);}
+.mstep{display:none;}
+.mstep.on{display:block;}
+/* Mapping animation */
+.map-wrap{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
+.map-box{flex:1;min-width:190px;background:#F9F5F0;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:.72rem;font-family:ui-monospace,monospace;white-space:pre-wrap;}
+.map-box b{display:block;font-family:-apple-system,sans-serif;font-size:.68rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.glow{background:var(--accent);color:var(--ainc);border-radius:3px;padding:0 2px;}
+/* Presentation / live audit split */
+.split-wrap{display:block;}
+body.split .split-wrap{display:flex;gap:18px;align-items:flex-start;}
+.split-left{flex:1;min-width:0;}
+.live-audit{display:none;flex:1;min-width:260px;background:var(--brand);color:#fff;border-radius:12px;padding:16px;position:sticky;top:90px;max-height:70vh;overflow-y:auto;}
+body.split .live-audit{display:block;}
+.live-audit b{display:block;margin-bottom:8px;}
+.live-audit .lrow{font-size:.74rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15);}
+.nav{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--card);-webkit-mask-image:linear-gradient(to right,#000 92%,transparent 100%);mask-image:linear-gradient(to right,#000 92%,transparent 100%);}
+.nav button{flex:0 0 auto;font-size:.8rem;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;}
+.nav button.on{background:var(--brand);color:#fff;border-color:var(--brand);}
 </style>
 </head>
 <body>
@@ -107,56 +103,58 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
   <div class="corr" id="roleBadge"></div>
   <div class="corr" id="corrBadge"></div>
   <button class="bell" id="bellBtn" onclick="toggleNotif()">🔔<span class="notifdot" id="notifCount" style="display:none;">0</span></button>
+  <button class="linkbtn" onclick="login('official')">Official</button>
+  <button class="linkbtn" onclick="login('admin')">Admin</button>
   <div class="tag">Synthetic data · Mock APIs</div>
 </div>
 <div class="stripe"><span style="background:#F9F5F0;"></span><span style="background:#F2EAD3;"></span><span style="background:#F4991A;"></span><span style="background:#344F1F;"></span></div>
-<div class="trace" id="trace"></div>
 <div class="notif-panel" id="notifPanel"></div>
 
 <main>
+<div class="split-wrap">
+<div class="split-left">
 
-<section class="view active" id="v-login">
-  <h1>MahaSetu</h1>
-  <p class="lead">Secure Government Digital Interoperability Platform<br>"Connect once. Share securely. Deliver seamlessly."</p>
-  <p style="font-size:.82rem;color:var(--muted);margin:0 0 16px;">MahaDBT, Aaple Sarkar and MahaSwayam don't talk to each other today — citizens repeat the same information across all three. MahaSetu connects them without replacing them.</p>
-  <div class="role-grid">
-    <button class="role-btn" onclick="login('citizen')"><b>Citizen Login</b><span>Request services, manage consent, track applications</span></button>
-    <button class="role-btn" onclick="login('official')"><b>Official Login</b><span>Process cases, advance workflows</span></button>
-    <button class="role-btn" onclick="login('admin')"><b>Admin Login</b><span>Systems, connectors, monitoring</span></button>
+<!-- ================= CITIZEN: LEGACY MAHADBT PORTAL (default screen) ================= -->
+<section class="view active" id="v-legacy">
+  <div class="lp-badge">⚠ Prototype / Synthetic Demo — not an official MahaDBT interface</div>
+  <h1>MahaDBT · Scholarship Application</h1>
+  <p class="lead">Engineering Scholarship</p>
+  <div class="card">
+    <div class="lp-field"><span>Student Name</span><span><b>Rahul Kumar</b></span></div>
+    <div class="lp-field"><span>Student ID</span><span>STU-101</span></div>
+    <div class="lp-field"><span>Course</span><span>B.Tech Computer Science</span></div>
+    <div class="lp-field"><span>College</span><span>Government College of Engineering</span></div>
+    <div class="lp-field"><span>Annual Family Income</span><span id="lpIncome">Not verified</span></div>
+    <div class="lp-field"><span>Verification Status</span><span id="lpStatus" class="badge warn">Not verified</span></div>
+    <div style="margin-top:14px;">
+      <button class="btn acc" id="lpFetchBtn" onclick="openFetchModal()">Fetch Verified Income via MahaSetu</button>
+      <button class="btn ghost" id="lpTrackLink" style="display:none;" onclick="go('v-tracker')">View Application Status →</button>
+    </div>
   </div>
-  <div class="disclaimer">⚠ Prototype environment — this is not an official Government of Maharashtra platform. No production access. All records and APIs are synthetic or mocked.</div>
+  <div class="row">
+    <button class="btn ghost">Save Draft</button>
+    <button class="btn ghost" id="lpContinue" disabled>Continue</button>
+  </div>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:20px;">Curious how this worked behind the scenes? <a href="#" onclick="go('v-overview');return false;" style="color:var(--brand);">See the platform overview →</a></p>
 </section>
 
+<!-- ================= OVERVIEW ================= -->
 <section class="view" id="v-overview">
   <div class="nav" id="navBar10"></div>
   <h1>Overview</h1>
   <p class="lead">Secure Government Digital Interoperability Platform — "Connect once. Share securely. Deliver seamlessly."</p>
+  <div class="why">MahaSetu is not another portal citizens visit. It's an invisible layer that lets existing systems like MahaDBT request verified data from other departments — the citizen never leaves MahaDBT.</div>
   <div class="card">
     <div class="row" style="align-items:flex-start;">
-      <div style="flex:1;min-width:220px;">
-        <b style="color:var(--red);">Today</b>
-        <p style="font-size:.85rem;color:var(--muted);margin:8px 0 0;">3 separate logins · same information entered 3 times · no combined status to track</p>
-      </div>
-      <div style="flex:1;min-width:220px;">
-        <b style="color:var(--green);">With MahaSetu</b>
-        <p style="font-size:.85rem;color:var(--muted);margin:8px 0 0;">1 login · data fetched automatically · one tracker across all three departments</p>
-      </div>
-    </div>
-  </div>
-  <div class="card" style="text-align:center;">
-    <b>Architecture at a glance</b>
-    <div class="idgrid" style="margin-top:12px;">
-      <div class="idbox"><b>Frontend</b>unified</div>
-      <div class="idbox"><b>Gateway</b>auth · RBAC · correlation ID</div>
-      <div class="idbox"><b>Core</b>consent · MDM · canonical · workflow</div>
-      <div class="idbox"><b>3 Connectors</b>MahaDBT · Aaple Sarkar · MahaSwayam</div>
+      <div style="flex:1;min-width:220px;"><b style="color:var(--red);">Today</b><p style="font-size:.85rem;color:var(--muted);margin:8px 0 0;">Citizen uploads income certificate manually · departments can't verify each other's data · no shared identity</p></div>
+      <div style="flex:1;min-width:220px;"><b style="color:var(--green);">With MahaSetu</b><p style="font-size:.85rem;color:var(--muted);margin:8px 0 0;">One click inside MahaDBT fetches verified income from Aaple Sarkar automatically, with consent and a full audit trail</p></div>
     </div>
   </div>
   <div class="idgrid">
-    <div class="idbox"><b class="bignum">3 → 1</b>Portals visited per journey</div>
-    <div class="idbox"><b class="bignum">1×</b>Data entered, vs. 3× before</div>
+    <div class="idbox"><b class="bignum">1 click</b>Verified income fetched from inside MahaDBT</div>
+    <div class="idbox"><b class="bignum">0</b>New portals the citizen has to learn</div>
     <div class="idbox"><b class="bignum">100%</b>Stages carrying a correlation ID</div>
-    <div class="idbox"><b class="bignum">97.6%</b>Successful exchanges (synthetic)</div>
+    <div class="idbox"><b class="bignum">3</b>Departments connected without being merged</div>
   </div>
   <div class="card">
     <b>Problem statement coverage</b>
@@ -166,66 +164,15 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
       <div class="step"><span class="dot done">✓</span> Master-data management</div>
       <div class="step"><span class="dot done">✓</span> Consent-based sharing</div>
       <div class="step"><span class="dot done">✓</span> Unified tracking</div>
-      <div class="step"><span class="dot done">✓</span> Workflow orchestration</div>
       <div class="step"><span class="dot done">✓</span> Audit logs &amp; exception handling</div>
-      <div class="step"><span class="dot done">✓</span> RBAC</div>
     </div>
   </div>
 </section>
 
-<section class="view" id="v-dash">
-  <div class="nav" id="navBar"></div>
-  <h1>My Dashboard</h1>
-  <p class="why">Welcome back. Your identity is already linked across all three departments, so services can be requested in one go.</p>
-  <div class="card">
-    <div class="row" style="justify-content:space-between;">
-      <div><b>Rahul Kumar</b><br><span style="color:var(--muted);font-size:.8rem;">Master ID: P-1001</span></div>
-      <span class="badge ok">Identity Resolved</span>
-    </div>
-    <div class="idgrid">
-      <div class="idbox"><b>MahaDBT</b>STU-101</div>
-      <div class="idbox"><b>Aaple Sarkar</b>APP-782</div>
-      <div class="idbox"><b>MahaSwayam</b>CAN-55</div>
-    </div>
-  </div>
-  <div class="card">
-    <b>Available service</b>
-    <p style="color:var(--muted);font-size:.82rem;margin:6px 0 12px;">One cross-department journey — no need to visit three portals separately.</p>
-    <button class="btn acc" onclick="go('v-cat')">Browse Service Catalogue →</button>
-  </div>
-</section>
-
-<section class="view" id="v-cat">
-  <div class="nav" id="navBar2"></div>
-  <h1>Services<span class="pstag">API exchange · P0</span></h1>
-  <p class="why">Pick a service once. We'll collect what's needed from each department for you — you won't re-type anything.</p>
-  <div class="card">
-    <h3 style="margin:0 0 4px;">Integrated Skill & Employment Assistance</h3>
-    <p style="color:var(--muted);font-size:.82rem;">Pulls education, certificate/income and skills data from three departments into one application — you enter nothing twice.</p>
-    <table style="width:100%;font-size:.78rem;border-collapse:collapse;margin-top:10px;">
-      <tr style="color:var(--muted);"><td>Education</td><td>MahaDBT</td></tr>
-      <tr style="color:var(--muted);"><td>Certificate / income</td><td>Aaple Sarkar</td></tr>
-      <tr style="color:var(--muted);"><td>Skills</td><td>MahaSwayam</td></tr>
-    </table>
-    <p style="font-size:.76rem;color:var(--amber);margin-top:8px;">🔒 Requires consent before any cross-system data is fetched.</p>
-    <button class="btn acc" style="margin-top:8px;" onclick="requestService()">Request this service</button>
-  </div>
-</section>
-
-<section class="view" id="v-consent">
-  <div class="nav" id="navBar3"></div>
-  <h1>Your Permissions<span class="pstag">Consent-based sharing · P0</span></h1>
-  <p class="why">Each department below needs your permission before we can look anything up. Deny any one and that request is blocked — nothing is fetched without your approval.</p>
-  <div id="consentList"></div>
-  <div class="block-banner" id="blockBanner">🔒 Connector request blocked — reason: valid consent required.</div>
-  <div class="ok-banner" id="okBanner">✓ Consent verified · ✓ Connector requests authorized</div>
-  <button class="btn" id="proceedBtn" disabled onclick="go('v-mdm')">Continue to Identity Resolution →</button>
-</section>
-
+<!-- ================= IDENTITY / MDM ================= -->
 <section class="view" id="v-mdm">
   <div class="nav" id="navBar4"></div>
-  <h1>Your Identity<span class="pstag">Master-data management · P0</span></h1>
-  <p class="why">You exist under a different ID in each department. This is how we confirm all three records belong to the same person — you.</p>
+  <h1>Identity (MDM)<span class="pstag">Master-data management · P0</span></h1>
   <div class="card">
     <b>Master person</b>
     <div class="idgrid" style="margin-top:8px;"><div class="idbox"><b>P-1001</b>Rahul Kumar</div></div>
@@ -233,64 +180,80 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
     <div class="idgrid">
       <div class="idbox"><b>MahaDBT</b>STU-101<br><span class="badge ok" style="margin-top:6px;display:inline-block;">98% match</span></div>
       <div class="idbox"><b>Aaple Sarkar</b>APP-782<br><span class="badge ok" style="margin-top:6px;display:inline-block;">96% match</span></div>
-      <div class="idbox"><b>MahaSwayam</b>CAN-55<br><span class="badge warn" style="margin-top:6px;display:inline-block;">Review — 81%</span></div>
+      <div class="idbox" id="mswBox"></div>
+    </div>
+    <div id="provWrap" style="display:none;margin-top:14px;">
+      <p style="font-size:.82rem;color:var(--muted);">MahaSetu detected that the citizen does not have a corresponding MahaSwayam record.</p>
+      <button class="btn acc" id="provBtn" onclick="autoProvision()">Auto-Provision via API</button>
+      <div id="provStatus" style="margin-top:8px;"></div>
+      <details class="tech" style="margin-top:8px;"><summary>View technical detail (SIMULATED API RESPONSE)</summary>
+        <pre>POST /mahaswayam/candidates
+{
+  "masterId": "P-1001",
+  "name": "Rahul Kumar",
+  "source": "MahaSetu"
+}
+
+HTTP 201 Created
+{
+  "candidateId": "CAN-999",
+  "status": "CREATED"
+}</pre>
+      </details>
     </div>
   </div>
-  <button class="btn acc" onclick="go('v-exchange')">Continue to Data Exchange →</button>
 </section>
 
-<section class="view" id="v-exchange">
-  <div class="nav" id="navBar5"></div>
-  <h1>Data Check<span class="pstag">Common data standards · P0</span></h1>
-  <p class="why">The three departments store your information in completely different formats. We fetch each one, check it for errors, and convert it into a single consistent record.</p>
-  <button class="btn acc" id="fetchBtn" onclick="runExchange()">Fetch from all 3 systems</button>
-  <div id="exchangeOut" style="margin-top:12px;"></div>
-</section>
-
+<!-- ================= TRACKER ================= -->
 <section class="view" id="v-tracker">
   <div class="nav" id="navBar6"></div>
-  <h1>My Application<span class="pstag">Unified tracking · P0</span></h1>
-  <p class="why">One place to see where your request stands across all three departments — no need to check three portals.</p>
+  <h1>Application Tracker<span class="pstag">Unified tracking · P0</span></h1>
   <div class="card">
-    <div class="row" style="justify-content:space-between;"><b>MS-APP-1001</b><span class="badge ok" id="trackerStatus">In process</span></div>
-    <p style="color:var(--muted);font-size:.8rem;">Integrated Skill & Employment Assistance</p>
+    <div class="row" style="justify-content:space-between;"><b>MS-APP-1001</b><span class="badge ok" id="trackerStatus">Draft</span></div>
+    <p style="color:var(--muted);font-size:.8rem;">Engineering Scholarship — MahaDBT</p>
     <div class="flow" id="trackerFlow"></div>
   </div>
 </section>
 
+<!-- ================= AUDIT / EXCEPTIONS ================= -->
 <section class="view" id="v-audit">
   <div class="nav" id="navBar7"></div>
   <h1>Exception &amp; Audit Trail<span class="pstag">Audit logs · P0</span></h1>
-  <p class="lead">Every action is traceable by correlation ID.</p>
+  <p class="lead">Every action mockDB4_MahaSetu records — traceable by correlation ID.</p>
   <div id="excList"></div>
   <div class="card">
     <b>Audit log</b>
-    <table id="auditTable"><thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Result</th><th>Correlation</th></tr></thead><tbody id="auditBody"></tbody></table>
+    <table class="audit"><thead><tr><th>Time</th><th>Action</th><th>Result</th><th>Correlation</th></tr></thead><tbody id="auditBody"></tbody></table>
   </div>
 </section>
 
+<!-- ================= ARCHITECTURE ================= -->
 <section class="view" id="v-arch">
   <div class="nav" id="navBar8"></div>
   <h1>Architecture</h1>
-  <p class="lead">MahaSetu connects existing systems — it does not replace them.</p>
+  <p class="lead">MahaSetu is invisible to the citizen — it mediates between systems, it doesn't replace them.</p>
   <div class="card" style="text-align:center;">
-    <div class="idbox">Citizen / Official / Admin</div>
-    <div style="margin:6px 0;color:var(--muted);">↓</div>
-    <div class="idbox"><b>Unified Frontend</b></div>
-    <div style="margin:6px 0;color:var(--muted);">↓</div>
-    <div class="idbox"><b>API Gateway</b><br><span style="font-size:.72rem;color:var(--muted);">auth · RBAC · routing · correlation ID</span></div>
-    <div style="margin:6px 0;color:var(--muted);">↓</div>
-    <div class="idbox"><b>Interoperability Core</b><br><span style="font-size:.72rem;color:var(--muted);">consent · MDM · validation · canonical model · mapping · workflow · audit</span></div>
-    <div style="margin:6px 0;color:var(--muted);">↓</div>
+    <div class="idbox">Citizen</div><div style="color:var(--muted);">↓</div>
+    <div class="idbox"><b>Legacy Portal (MahaDBT)</b><br><span style="font-size:.72rem;color:var(--muted);">"Fetch Verified Income"</span></div><div style="color:var(--muted);">↓</div>
+    <div class="idbox"><b>API Gateway</b></div><div style="color:var(--muted);">↓</div>
+    <div class="idbox"><b>Interoperability Core</b><br><span style="font-size:.72rem;color:var(--muted);">consent · MDM · policy · canonical · workflow · events · audit</span></div><div style="color:var(--muted);">↓</div>
     <div class="idgrid">
-      <div class="idbox"><b>MahaDBT Connector</b><br><span style="font-size:.72rem;color:var(--muted);">XML/SOAP-like</span></div>
-      <div class="idbox"><b>Aaple Sarkar Connector</b><br><span style="font-size:.72rem;color:var(--muted);">REST/JSON</span></div>
-      <div class="idbox"><b>MahaSwayam Connector</b><br><span style="font-size:.72rem;color:var(--muted);">REST/nested JSON</span></div>
+      <div class="idbox"><b>MahaDBT · DB1</b></div>
+      <div class="idbox"><b>Aaple Sarkar · DB2</b></div>
+      <div class="idbox"><b>MahaSwayam · DB3</b></div>
+    </div>
+    <p style="font-size:.76rem;color:var(--muted);margin-top:10px;">↓<br><b>MahaSetu · DB4</b></p>
+  </div>
+  <p style="font-size:.78rem;color:var(--muted);">DB1, DB2 and DB3 remain independently owned and isolated. DB4 stores interoperability metadata, consent, audit, events and platform state — not a replacement for departmental databases.</p>
+  <div class="card">
+    <div class="row" style="align-items:flex-start;">
+      <div style="flex:1;min-width:200px;"><b style="color:var(--green);">MahaSetu does</b><p style="font-size:.82rem;color:var(--muted);margin:8px 0 0;">Mediate API calls · enforce consent · normalize data · resolve identities · log every event</p></div>
+      <div style="flex:1;min-width:200px;"><b style="color:var(--red);">MahaSetu does not</b><p style="font-size:.82rem;color:var(--muted);margin:8px 0 0;">Replace portals · directly expose databases · merge departmental data · bypass consent</p></div>
     </div>
   </div>
-  <p style="font-size:.78rem;color:var(--muted);">Middleware talks to portal APIs only — DB1, DB2 and DB3 stay independent; DB4 is MahaSetu's own platform database.</p>
 </section>
 
+<!-- ================= IMPACT ================= -->
 <section class="view" id="v-impact">
   <div class="nav" id="navBar9"></div>
   <h1>Impact</h1>
@@ -299,313 +262,314 @@ details.tech summary{cursor:pointer;font-size:.76rem;color:var(--brand);font-wei
     <div class="idbox"><b class="bignum">3 → 1</b>Portals visited per journey</div>
     <div class="idbox"><b class="bignum">1×</b>Data entered, vs. 3× before</div>
     <div class="idbox"><b class="bignum">100%</b>Stages carrying a correlation ID</div>
-    <div class="idbox"><b class="bignum">97.6%</b>Successful exchanges (synthetic run)</div>
+    <div class="idbox"><b class="bignum">97.6%</b>Successful exchanges (synthetic)</div>
   </div>
 </section>
 
+<!-- ================= OFFICIAL ================= -->
 <section class="view" id="v-official">
-  <div class="nav" id="navBarOfficial"></div>
   <h1>Case Queue</h1>
   <p class="lead">Cases requiring official action.</p>
   <div class="card">
-    <div class="sysrow"><div><b>Rahul Kumar</b><br><span style="color:var(--muted);">Integrated Skill &amp; Employment</span></div><div class="row"><span class="badge ok">In process</span><button class="btn ghost" style="padding:6px 10px;" onclick="toast('Workflow advanced — citizen notified')">Advance</button></div></div>
+    <div class="sysrow"><div><b>Rahul Kumar</b><br><span style="color:var(--muted);">Engineering Scholarship</span></div><div class="row"><span class="badge ok" id="offStatus">Draft</span><button class="btn ghost" style="padding:6px 10px;" onclick="toast('Workflow advanced — citizen notified')">Advance</button></div></div>
     <div class="sysrow"><div><b>Priya Shinde</b><br><span style="color:var(--muted);">Certificate Verification</span></div><span class="badge warn">Pending consent</span></div>
-    <div class="sysrow"><div><b>Amit Joshi</b><br><span style="color:var(--muted);">Education Benefit</span></div><span class="badge bad">Exception</span></div>
   </div>
+  <div class="row"><button class="btn ghost" onclick="go('v-overview')">Overview</button><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-mdm')">Identity</button><button class="btn ghost" onclick="go('v-tracker')">Tracker</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="logout()">Log out</button></div>
 </section>
 
+<!-- ================= ADMIN ================= -->
 <section class="view" id="v-admin">
-  <div class="nav" id="navBarAdmin"></div>
   <h1>System Registry &amp; Monitoring</h1>
   <p class="lead">Synthetic Prototype Metrics — not live Government of Maharashtra statistics.</p>
   <div class="card">
-    <div class="sysrow"><b>MahaDBT</b><span style="color:var(--muted);">XML/SOAP-like</span><span class="badge ok">Healthy · 92ms</span></div>
-    <div class="sysrow"><b>Aaple Sarkar</b><span style="color:var(--muted);">REST/JSON</span><span class="badge ok">Healthy · 61ms</span></div>
-    <div class="sysrow"><b>MahaSwayam</b><span style="color:var(--muted);">REST/nested JSON</span><span class="badge ok">Healthy · 74ms</span></div>
+    <div class="sysrow"><b>MahaDBT</b><span style="color:var(--muted);">XML/SOAP-like</span><span class="badge ok">Healthy</span></div>
+    <div class="sysrow"><b>Aaple Sarkar</b><span style="color:var(--muted);">REST/JSON</span><span class="badge ok">Healthy</span></div>
+    <div class="sysrow"><b>MahaSwayam</b><span style="color:var(--muted);">REST/nested JSON</span><span class="badge ok">Healthy</span></div>
   </div>
   <div class="card row" style="justify-content:space-between;">
     <div><b>1,248</b><br><span style="color:var(--muted);font-size:.75rem;">Requests today</span></div>
     <div><b>97.6%</b><br><span style="color:var(--muted);font-size:.75rem;">Success rate</span></div>
     <div><b id="excCount2">0</b><br><span style="color:var(--muted);font-size:.75rem;">Pending exceptions</span></div>
   </div>
+  <div class="row"><button class="btn ghost" onclick="go('v-overview')">Overview</button><button class="btn ghost" onclick="go('v-arch')">Architecture</button><button class="btn ghost" onclick="go('v-impact')">Impact</button><button class="btn ghost" onclick="go('v-mdm')">Identity</button><button class="btn ghost" onclick="go('v-tracker')">Tracker</button><button class="btn ghost" onclick="go('v-audit')">Audit &amp; Exceptions</button><button class="btn ghost" onclick="logout()">Log out</button></div>
 </section>
 
+</div>
+<div class="live-audit" id="liveAudit">
+  <b>MahaSetu Live Audit</b>
+  <div class="corr" style="display:inline-block;background:rgba(255,255,255,.15);margin-bottom:10px;" id="livePanelCorr">No active transaction</div>
+  <div id="liveAuditList"></div>
+</div>
+</div>
 </main>
 
+<!-- ================= FETCH MODAL ================= -->
+<div class="modal-overlay" id="msModal">
+  <div class="modal-box">
+    <h2>MahaSetu — Verify Income</h2>
+    <div class="corr" style="display:inline-block;margin-bottom:12px;" id="modalCorr"></div>
+
+    <div class="mstep" id="ms-consent">
+      <b>Aaple Sarkar</b>
+      <p style="font-size:.84rem;color:var(--muted);">Purpose: Verify income eligibility for Engineering Scholarship</p>
+      <p style="font-size:.82rem;">Requested data: Certificate Number · Verified Annual Income · Verification Status</p>
+      <div id="expiredNote" style="display:none;" class="badge bad" >Consent expired — please re-approve</div>
+      <div class="row" style="margin-top:10px;"><button class="btn ghost" onclick="decideConsent(false)">Deny</button><button class="btn acc" onclick="decideConsent(true)">Approve Consent</button></div>
+    </div>
+
+    <div class="mstep" id="ms-blocked">
+      <p style="color:var(--red);">🔒 Request blocked — consent required.</p>
+      <button class="btn ghost" onclick="closeModal()">Close</button>
+    </div>
+
+    <div class="mstep" id="ms-valfail">
+      <p style="color:var(--red);">✕ Validation failed — income below 0. Exception logged.</p>
+      <button class="btn ghost" onclick="go('v-audit');closeModal();">View Exception</button>
+    </div>
+
+    <div class="mstep" id="ms-fetch">
+      <p>✓ Consent approved · ✓ Request authorized</p>
+      <div id="fetchStatus"></div>
+    </div>
+
+    <div class="mstep" id="ms-map">
+      <b>Mapping to MahaSetu canonical model</b>
+      <div class="map-wrap">
+        <div class="map-box"><b>Source — Aaple Sarkar</b><span id="sourceBox"></span></div>
+        <div class="map-box"><b>MahaSetu canonical model</b><span id="canonicalBox"></span></div>
+      </div>
+      <details class="tech" style="margin-top:10px;"><summary>Canonical mapping table</summary>
+        <table class="audit"><thead><tr><th>Source field</th><th>Canonical field</th><th>Transform</th></tr></thead>
+        <tbody><tr><td>certificateNo</td><td>certificate.number</td><td>rename</td></tr>
+        <tr><td>income</td><td>certificate.income</td><td>numeric</td></tr>
+        <tr><td>status</td><td>certificate.status</td><td>enum</td></tr></tbody></table>
+      </details>
+    </div>
+
+    <div class="mstep" id="ms-done">
+      <p style="color:var(--green);">✓ Verified income retrieved and MahaDBT updated.</p>
+      <button class="btn acc" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
-<div class="hint" id="demoHint">Start here for a guided demo ↓</div>
 <button class="demo-fab" onclick="togglePanel()">Demo Mode</button>
 <div class="demo-panel" id="demoPanel">
+  <div class="toggle-row"><input type="checkbox" id="presToggle" onchange="togglePresentation(this)"> Presentation Mode</div>
+  <div class="toggle-row"><input type="checkbox" id="newCitToggle" onchange="toggleNewCitizen(this)"> Simulate New Citizen</div>
   <button onclick="resetDemo()">↺ Reset demo</button>
   <button onclick="runAuto()">▶ Run successful journey</button>
   <button onclick="simDeny()">Simulate consent denied</button>
   <button onclick="simExpired()">Simulate expired consent</button>
-  <button onclick="simXmlFail()">Simulate MahaDBT timeout</button>
+  <button onclick="simConnFail()">Simulate Aaple Sarkar timeout</button>
   <button onclick="simValFail()">Simulate validation failure</button>
 </div>
 
 <script>
-const views=['v-login','v-overview','v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker','v-audit','v-arch','v-impact','v-official','v-admin'];
-const navLabels={'v-overview':'Overview','v-dash':'My Dashboard','v-cat':'Services','v-consent':'Permissions','v-mdm':'Identity','v-exchange':'Data Check','v-tracker':'My Application','v-audit':'Audit','v-arch':'Architecture','v-impact':'Impact','v-official':'Case Queue','v-admin':'System Registry','v-login':'Log out'};
-const citizenNav=['v-overview','v-dash','v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
-const officialNav=['v-official','v-overview','v-arch','v-impact','v-audit','v-login'];
-const adminNav=['v-admin','v-overview','v-arch','v-impact','v-audit','v-login'];
-const staffNav=['v-audit','v-arch','v-impact'];
-let currentRole='citizen';
-const stepOrder=['v-cat','v-consent','v-mdm','v-exchange','v-tracker'];
-let state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
-let exceptions=[],auditLog=[],notifications=[];
+/* ===================== MOCK DB1 — MahaDBT (owns the scholarship application) ===================== */
+const mockDB1_MahaDBT = {studentId:'STU-101',name:'Rahul Kumar',course:'B.Tech Computer Science',college:'Government College of Engineering',income:null,incomeStatus:'Not verified',certNo:null};
+/* ===================== MOCK DB2 — Aaple Sarkar (owns certificate/income truth) ===================== */
+const mockDB2_AapleSarkar = {certificateNo:'CERT-2026-77',income:250000,status:'VERIFIED'};
+/* ===================== MOCK DB3 — MahaSwayam (owns candidate/skills records) ===================== */
+let mockDB3_MahaSwayam = {linked:true,candidateId:'CAN-55',skills:['Java','SQL']};
+/* ===================== MOCK DB4 — MahaSetu platform state (consent, audit, correlation, MDM) ===================== */
+const mockDB4_MahaSetu = {correlationId:null,consent:null,auditLog:[],exceptions:[]};
 
-function getNavForRole(){
-  if(currentRole==='official') return officialNav;
-  if(currentRole==='admin') return adminNav;
-  return citizenNav;
-}
+let currentRole='citizen';
+let demo={presentation:false,connFailMode:false,valFailMode:false};
+let notifications=[];
+const views=['v-legacy','v-overview','v-mdm','v-tracker','v-audit','v-arch','v-impact','v-official','v-admin'];
+const navLabels={'v-overview':'Overview','v-mdm':'Identity','v-tracker':'Tracker','v-audit':'Audit','v-arch':'Architecture','v-impact':'Impact'};
+
 function buildNav(){
-  const allNavIds=['navBar','navBar2','navBar3','navBar4','navBar5','navBar6','navBar7','navBar8','navBar9','navBar10','navBarOfficial','navBarAdmin'];
-  allNavIds.forEach(id=>{
+  ['navBar4','navBar6','navBar7','navBar8','navBar9','navBar10'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return; el.innerHTML='';
-    const show=getNavForRole();
-    show.forEach(v=>{
-      const b=document.createElement('button'); b.textContent=navLabels[v]; b.onclick=()=>{ if(v==='v-login'){ logout(); return; } go(v); }; el.appendChild(b);
-    });
+    Object.keys(navLabels).forEach(v=>{ const b=document.createElement('button'); b.textContent=navLabels[v]; b.onclick=()=>go(v); el.appendChild(b); });
   });
 }
 function go(id){
-  const guarded=['v-consent','v-mdm','v-exchange','v-tracker'];
-  if(guarded.includes(id) && !state.corrId){ toast('Start a request from Services first →'); id='v-cat'; }
   views.forEach(v=>document.getElementById(v).classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  buildNav();
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.textContent===navLabels[id]));
-  const si=stepOrder.indexOf(id);
-  document.querySelectorAll('.stepwrap').forEach(w=>w.remove());
-  if(si>-1){
-    const sec=document.getElementById(id);
-    const nav=sec.querySelector('.nav');
-    const w=document.createElement('div'); w.className='stepwrap';
-    w.innerHTML='<div class="stepnum">Step '+(si+1)+' of 5</div><div class="stepper">'+stepOrder.map((_,i)=>'<div class="'+(i<=si?'on':'')+'"></div>').join('')+'</div>';
-    if(nav) nav.after(w); else sec.prepend(w);
-  }
   window.scrollTo(0,0);
 }
 function login(role){
-  currentRole=role; buildNav();
-  logAudit(role.charAt(0).toUpperCase()+role.slice(1),'Login','SUCCESS');
+  currentRole=role;
+  auditEvent(role[0].toUpperCase()+role.slice(1)+' login','SUCCESS');
   document.getElementById('roleBadge').style.display='inline-block';
-  document.getElementById('roleBadge').textContent=role.charAt(0).toUpperCase()+role.slice(1);
-  if(role==='citizen') go('v-dash'); else if(role==='official') go('v-official'); else go('v-admin');
-  toast('Logged in as '+role);
+  document.getElementById('roleBadge').textContent=role[0].toUpperCase()+role.slice(1);
+  go(role==='official'?'v-official':'v-admin');
 }
-function logout(){
-  currentRole='citizen';
-  state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
-  exceptions=[]; auditLog=[]; notifications=[];
-  document.getElementById('trace').style.display='none';
-  document.getElementById('corrBadge').style.display='none';
-  document.getElementById('roleBadge').style.display='none';
-  document.getElementById('notifCount').style.display='none';
-  document.getElementById('auditBody').innerHTML=''; renderExc(); renderNotif();
-  document.getElementById('excCount2').textContent='0';
-  buildNav();
-  go('v-login');
-  toast('Logged out');
-}
+function logout(){ currentRole='citizen'; document.getElementById('roleBadge').style.display='none'; go('v-legacy'); }
+
 function toast(msg){
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2600);
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600);
   notifications.unshift({t:new Date().toLocaleTimeString(),m:msg});
-  document.getElementById('notifCount').style.display='inline-block';
-  document.getElementById('notifCount').textContent=notifications.length;
+  document.getElementById('notifCount').style.display='inline-block'; document.getElementById('notifCount').textContent=notifications.length;
   renderNotif();
 }
 function toggleNotif(){ const p=document.getElementById('notifPanel'); p.style.display=p.style.display==='block'?'none':'block'; renderNotif(); }
-function renderNotif(){
-  const p=document.getElementById('notifPanel');
-  p.innerHTML=notifications.length? notifications.slice(0,12).map(n=>`<div class="ni"><b>${n.t}</b><br>${n.m}</div>`).join('') : '<div class="ni">No notifications yet.</div>';
-}
-function logAudit(actor,action,result){
-  const row={t:new Date().toLocaleTimeString(),actor,action,result,c:state.corrId||'—'};
-  auditLog.unshift(row);
-  const tb=document.getElementById('auditBody');
-  const cls=result==='SUCCESS'?'ok':result==='BLOCKED'||result==='FAILED'?'bad':'warn';
-  tb.insertAdjacentHTML('afterbegin',`<tr><td>${row.t}</td><td>${actor}</td><td>${action}</td><td><span class="badge ${cls}">${result}</span></td><td>${row.c}</td></tr>`);
+function renderNotif(){ document.getElementById('notifPanel').innerHTML = notifications.length? notifications.slice(0,12).map(n=>`<div class="ni"><b>${n.t}</b><br>${n.m}</div>`).join('') : '<div class="ni">No notifications yet.</div>'; }
+
+/* ===================== AUDIT / EXCEPTIONS — always written to mockDB4_MahaSetu ===================== */
+function auditEvent(action,status){
+  const row={t:new Date().toLocaleTimeString(),action,status,corr:mockDB4_MahaSetu.correlationId||'—'};
+  mockDB4_MahaSetu.auditLog.unshift(row);
+  const cls=status==='SUCCESS'?'ok':(status==='BLOCKED'||status==='FAILED')?'bad':'warn';
+  document.getElementById('auditBody').insertAdjacentHTML('afterbegin',`<tr><td>${row.t}</td><td>${action}</td><td><span class="badge ${cls}">${status}</span></td><td>${row.corr}</td></tr>`);
+  if(demo.presentation) renderLivePanel();
 }
 function raiseException(type,connector,msg){
-  const id='EX-'+(1000+exceptions.length+42);
-  exceptions.unshift({id,type,connector,msg});
+  const id='EX-'+(1042+mockDB4_MahaSetu.exceptions.length);
+  mockDB4_MahaSetu.exceptions.unshift({id,type,connector,msg});
   renderExc();
-  document.getElementById('excCount2').textContent=exceptions.length;
+  document.getElementById('excCount2').textContent=mockDB4_MahaSetu.exceptions.length;
 }
-function resolveExc(id){ exceptions=exceptions.filter(e=>e.id!==id); renderExc(); document.getElementById('excCount2').textContent=exceptions.length; toast(id+' resolved'); }
+function resolveExc(id){ mockDB4_MahaSetu.exceptions=mockDB4_MahaSetu.exceptions.filter(e=>e.id!==id); renderExc(); document.getElementById('excCount2').textContent=mockDB4_MahaSetu.exceptions.length; toast(id+' resolved'); }
 function renderExc(){
-  const el=document.getElementById('excList'); if(!el) return;
-  el.innerHTML=exceptions.length? exceptions.map(e=>`<div class="card excard"><div class="row" style="justify-content:space-between;"><b>${e.id}</b><span class="badge bad">${e.type}</span></div><p style="font-size:.8rem;color:var(--muted);margin:6px 0;">Connector: ${e.connector} · ${e.msg} · Correlation: ${state.corrId||'—'}</p><button class="btn ghost" style="padding:6px 10px;" onclick="resolveExc('${e.id}')">Resolve</button></div>`).join('') : '<p style="color:var(--muted);font-size:.85rem;">No active exceptions.</p>';
+  document.getElementById('excList').innerHTML = mockDB4_MahaSetu.exceptions.length? mockDB4_MahaSetu.exceptions.map(e=>`<div class="card excard"><div class="row" style="justify-content:space-between;"><b>${e.id}</b><span class="badge bad">${e.type}</span></div><p style="font-size:.8rem;color:var(--muted);margin:6px 0;">Connector: ${e.connector} · ${e.msg} · Correlation: ${mockDB4_MahaSetu.correlationId||'—'}</p><button class="btn ghost" style="padding:6px 10px;" onclick="resolveExc('${e.id}')">Resolve</button></div>`).join('') : '<p style="color:var(--muted);font-size:.85rem;">No active exceptions.</p>';
 }
+function renderLivePanel(){
+  document.getElementById('livePanelCorr').textContent = mockDB4_MahaSetu.correlationId ? 'Correlation ID: '+mockDB4_MahaSetu.correlationId : 'No active transaction';
+  document.getElementById('liveAuditList').innerHTML = mockDB4_MahaSetu.auditLog.slice(0,10).map(r=>{
+    const cls=r.status==='SUCCESS'?'ok':(r.status==='BLOCKED'||r.status==='FAILED')?'bad':'warn';
+    return `<div class="lrow"><b>${r.t}</b> ${r.action}<br><span class="badge ${cls}">${r.status}</span></div>`;
+  }).join('') || '<div class="lrow">No events yet.</div>';
+}
+function togglePresentation(el){ demo.presentation=el.checked; document.body.classList.toggle('split',el.checked); if(el.checked) renderLivePanel(); }
+
+/* ===================== CORRELATION ID ===================== */
 function newCorrId(){ return 'MS-2026-'+Math.floor(100000+Math.random()*899999); }
-const traceSteps=['Gateway','Consent','MDM','Connector','Validation','Canonical','Workflow','Audit'];
-function initTrace(){
-  const t=document.getElementById('trace'); t.style.display='block';
-  t.innerHTML=traceSteps.map(s=>`<span class="chip" id="chip-${s}">${s}</span>`).join('');
-  document.getElementById('corrBadge').style.display='inline-block';
-  document.getElementById('corrBadge').textContent='Correlation ID: '+state.corrId;
+
+/* ===================== FETCH MODAL FLOW ===================== */
+function showModalStep(step){ document.querySelectorAll('.mstep').forEach(m=>m.classList.remove('on')); document.getElementById('ms-'+step).classList.add('on'); }
+function openFetchModal(){
+  mockDB4_MahaSetu.correlationId=newCorrId(); mockDB4_MahaSetu.consent=null;
+  document.getElementById('modalCorr').textContent='Correlation ID: '+mockDB4_MahaSetu.correlationId;
+  document.getElementById('corrBadge').style.display='inline-block'; document.getElementById('corrBadge').textContent='Correlation ID: '+mockDB4_MahaSetu.correlationId;
+  document.getElementById('expiredNote').style.display='none';
+  showModalStep('consent'); document.getElementById('msModal').style.display='flex';
+  auditEvent('REQUEST_RECEIVED','SUCCESS'); auditEvent('CONSENT_REQUESTED','PENDING');
 }
-function markTrace(step,fail){
-  const c=document.getElementById('chip-'+step); if(!c) return;
-  c.classList.add(fail?'fail':'done'); c.textContent=(fail?'✕ ':'✓ ')+step;
+function closeModal(){ document.getElementById('msModal').style.display='none'; }
+function decideConsent(val){
+  mockDB4_MahaSetu.consent=val;
+  if(val){ auditEvent('CONSENT_APPROVED','SUCCESS'); showModalStep('fetch'); runFetch(); }
+  else { auditEvent('CONSENT_DENIED','BLOCKED'); raiseException('CONSENT_DENIED','Aaple Sarkar','Citizen denied consent to share income'); showModalStep('blocked'); }
 }
-function requestService(){
-  state.corrId=newCorrId(); initTrace(); markTrace('Gateway');
-  logAudit('Citizen','Service requested','SUCCESS');
-  toast('Correlation ID issued: '+state.corrId);
-  renderConsent(); go('v-consent');
+function runFetch(){
+  const box=document.getElementById('fetchStatus'); box.innerHTML='<span class="badge warn">⏳ Contacting Aaple Sarkar…</span>';
+  setTimeout(()=>{
+    if(demo.connFailMode){
+      box.innerHTML='<span class="badge warn">retry 1/3 — 504 timeout</span>';
+      auditEvent('AapleSarkarConnector · CONNECTOR_TIMEOUT','FAILED'); auditEvent('RETRY_ATTEMPT','RETRYING');
+      setTimeout(()=>{ box.innerHTML='<span class="badge ok">Recovered on retry</span>'; auditEvent('RETRY_SUCCESS','SUCCESS'); demo.connFailMode=false; proceedFetch(); },900);
+      return;
+    }
+    box.innerHTML='<span class="badge ok">Data received</span>'; proceedFetch();
+  },700);
 }
-function renderConsent(){
-  const items=[
-    {k:'mahadbt',sys:'MahaDBT',purpose:'Verify education record',fields:'studentId, courseName'},
-    {k:'aaple',sys:'Aaple Sarkar',purpose:'Verify certificate & income',fields:'certificateNo, income'},
-    {k:'mahaswayam',sys:'MahaSwayam',purpose:'Retrieve skills',fields:'skills, candidate.id'}
-  ];
-  const list=document.getElementById('consentList'); list.innerHTML='';
-  items.forEach(it=>{
-    const div=document.createElement('div'); div.className='consent-item';
-    div.innerHTML=`<h3>${it.sys}</h3><p>Purpose: ${it.purpose} · Fields: ${it.fields} · Expires in 30 days</p>
-      <div class="row"><button class="btn" style="padding:6px 12px;" onclick="setConsent('${it.k}',true)">Approve</button>
-      <button class="btn ghost" style="padding:6px 12px;" onclick="setConsent('${it.k}',false)">Deny</button>
-      <span class="badge" id="badge-${it.k}"></span></div>`;
-    list.appendChild(div);
-  });
-  document.getElementById('blockBanner').style.display='none';
-  document.getElementById('okBanner').style.display='none';
-  document.getElementById('proceedBtn').disabled=true;
-  if(state.expiredDemo){
-    setTimeout(()=>{
-      document.getElementById('badge-aaple').textContent='Expired';
-      document.getElementById('badge-aaple').className='badge bad';
-      state.consents.aaple=false;
-      document.getElementById('blockBanner').style.display='block';
-      markTrace('Consent',true);
-      raiseException('EXPIRED_CONSENT','Aaple Sarkar','Consent expired before exchange');
-      logAudit('System','Consent check','BLOCKED');
-      toast('Consent expired — citizen must re-approve');
-      state.expiredDemo=false;
-    },300);
+/* PART 5 — explicit, controlled cross-system access. The UI never reads mockDB2 directly. */
+function fetchVerifiedIncomeFromAapleSarkar(){
+  if(mockDB4_MahaSetu.consent!==true){ auditEvent('CONNECTOR_BLOCKED','BLOCKED'); return null; }
+  const src=mockDB2_AapleSarkar; // the ONLY point that reads DB2
+  auditEvent('AapleSarkarConnector · DATA_FETCH','SUCCESS');
+  const income = demo.valFailMode ? -5000 : src.income;
+  if(income<0){
+    auditEvent('VALIDATION_ERROR','FAILED');
+    raiseException('VALIDATION','Aaple Sarkar','income below 0 — payload rejected');
+    showModalStep('valfail'); demo.valFailMode=false; return null;
   }
+  auditEvent('CANONICAL_MAPPING','SUCCESS');
+  return {certificate:{number:src.certificateNo,income:income,status:src.status}};
 }
-function setConsent(k,val){
-  state.consents[k]=val;
-  const b=document.getElementById('badge-'+k);
-  b.textContent=val?'Approved':'Denied'; b.className='badge '+(val?'ok':'bad');
-  const vals=Object.values(state.consents);
-  if(vals.includes(false)){
-    document.getElementById('blockBanner').style.display='block';
-    document.getElementById('okBanner').style.display='none';
-    document.getElementById('proceedBtn').disabled=true;
-    markTrace('Consent',true);
-    logAudit('System','Consent check','BLOCKED');
-    if(val===false) raiseException('CONSENT_DENIED','Aaple Sarkar','Citizen denied consent');
-    toast('Exception logged — consent denied');
-  } else if(vals.every(v=>v===true)){
-    document.getElementById('okBanner').style.display='block';
-    document.getElementById('blockBanner').style.display='none';
-    document.getElementById('proceedBtn').disabled=false;
-    markTrace('Consent'); markTrace('MDM');
-    logAudit('System','Consent check','SUCCESS');
-  }
+function proceedFetch(){
+  const canonical=fetchVerifiedIncomeFromAapleSarkar();
+  if(!canonical) return;
+  showModalStep('map'); runMappingAnimation(canonical);
 }
-function runExchange(){
-  document.getElementById('fetchBtn').disabled=true;
-  const out=document.getElementById('exchangeOut'); out.innerHTML='';
-  const steps=[
-    {sys:'MahaDBT',type:'XML / SOAP-like',body:'<StudentRecord>\n  <studentId>STU-101</studentId>\n  <studentName>Rahul Kumar</studentName>\n  <courseName>B.Tech CSE</courseName>\n</StudentRecord>'},
-    {sys:'Aaple Sarkar',type:'Flat REST JSON',body: state.valFailMode? '{\n  "certificateNo": "CERT-2026-77",\n  "income": -5000,\n  "status": "VERIFIED"\n}' : '{\n  "certificateNo": "CERT-2026-77",\n  "income": 250000,\n  "status": "VERIFIED"\n}'},
-    {sys:'MahaSwayam',type:'Nested REST JSON',body:'{\n  "candidate": { "id": "CAN-55", "skills": ["Java","SQL"] },\n  "applicationId": "MS-901"\n}'}
-  ];
-  let delay=0;
-  steps.forEach((s,i)=>{
+function renderSourceBox(){
+  const s=mockDB2_AapleSarkar;
+  document.getElementById('sourceBox').innerHTML=`{\n  "certificateNo": <span id="srcField-number">"${s.certificateNo}"</span>,\n  "income": <span id="srcField-income">${s.income}</span>,\n  "status": <span id="srcField-status">"${s.status}"</span>\n}`;
+}
+function renderCanonicalBox(t){
+  document.getElementById('canonicalBox').innerHTML=`{\n  "certificate": {\n    "number": <span id="tgtField-number">${t.number?('"'+t.number+'"'):'""'}</span>,\n    "income": <span id="tgtField-income">${t.income==null?'null':t.income}</span>,\n    "status": <span id="tgtField-status">${t.status?('"'+t.status+'"'):'""'}</span>\n  }\n}`;
+}
+function runMappingAnimation(canonical){
+  renderSourceBox();
+  const tgt={number:'',income:null,status:''}; renderCanonicalBox(tgt);
+  const fields=[['number',canonical.certificate.number],['income',canonical.certificate.income],['status',canonical.certificate.status]];
+  let d=0;
+  fields.forEach(([k,v],i)=>{
     setTimeout(()=>{
-      const d=document.createElement('div'); d.className='card';
-      d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge warn">⏳ Contacting…</span></div>`;
-      out.appendChild(d);
-    setTimeout(()=>{
-      const isXml=s.sys==='MahaDBT';
-      if(isXml && state.xmlFailMode){
-        d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge warn">retry 1/3 — 504 timeout</span></div>`;
-        setTimeout(()=>{ d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge ok">Recovered on retry</span></div><details class="tech"><summary>View technical detail</summary><pre>${s.body}</pre></details>`; toast('Transient failure recovered — bounded retry'); logAudit('System','Connector retry (MahaDBT)','SUCCESS'); },900);
-      } else {
-        d.innerHTML=`<div class="row"><span class="syslogo">${s.sys[0]}</span><b>${s.sys}</b> <span class="badge ok">Received</span></div><details class="tech"><summary>View technical detail (${s.type})</summary><pre>${s.body}</pre></details>`;
-      }
-      if(i===steps.length-1){
-        markTrace('Connector'); logAudit('System','Fetch from 3 connectors','SUCCESS');
-        setTimeout(()=>{
-          const v=document.createElement('div'); v.className='card';
-          if(state.valFailMode){
-            v.innerHTML='<b>Validation</b><br><span class="badge bad" style="margin-top:6px;display:inline-block;">✕ Failed: income must be ≥ 0 (received −5000)</span>';
-            out.appendChild(v);
-            markTrace('Validation',true);
-            raiseException('VALIDATION','Aaple Sarkar','income below 0 — payload rejected');
-            logAudit('System','Validate payload','FAILED');
-            const btn=document.createElement('button'); btn.className='btn ghost'; btn.textContent='View Exception →';
-            btn.onclick=()=>go('v-audit'); out.appendChild(btn);
-            document.getElementById('fetchBtn').disabled=false;
-            state.valFailMode=false;
-            return;
-          }
-          v.innerHTML='<b>Validation</b><br><span class="badge ok" style="margin-top:6px;display:inline-block;">✓ required fields present</span> <span class="badge ok" style="margin-top:6px;display:inline-block;">✓ income numeric &amp; ≥0</span>';
-          out.appendChild(v); markTrace('Validation'); logAudit('System','Validate payload','SUCCESS');
-        },600);
-        if(!state.valFailMode) setTimeout(()=>{
-          const c=document.createElement('div'); c.className='card';
-          c.innerHTML='<b>One combined record</b><br><span style="font-size:.8rem;color:var(--muted);">All three formats merged into a single consistent profile.</span><details class="tech" open><summary>View technical detail (canonical model)</summary><pre>{\n  "person": {"masterId":"P-1001","name":"Rahul Kumar"},\n  "education": {"program":"B.Tech CSE"},\n  "certificate": {"number":"CERT-2026-77","income":250000},\n  "skills": ["Java","SQL"]\n}</pre></details>';
-          out.appendChild(c); markTrace('Canonical'); logAudit('System','Canonical mapping','SUCCESS');
-          const btn=document.createElement('button'); btn.className='btn acc'; btn.textContent='Continue to Tracker →';
-          btn.onclick=()=>{buildTracker();go('v-tracker');};
-          out.appendChild(btn);
-          document.getElementById('fetchBtn').disabled=false;
-        },1300);
-      }
-    },550);
-    }, delay);
-    delay+=700;
+      const sf=document.getElementById('srcField-'+k); if(sf) sf.classList.add('glow');
+      setTimeout(()=>{
+        tgt[k]=v; renderCanonicalBox(tgt);
+        const tf=document.getElementById('tgtField-'+k); if(tf) tf.classList.add('glow');
+        if(i===fields.length-1) setTimeout(()=>finishFetch(canonical),500);
+      },350);
+    }, d); d+=550;
   });
+}
+function finishFetch(canonical){
+  mockDB1_MahaDBT.income=canonical.certificate.income;
+  mockDB1_MahaDBT.incomeStatus=canonical.certificate.status;
+  mockDB1_MahaDBT.certNo=canonical.certificate.number;
+  renderLegacyPortal();
+  auditEvent('MahaDBT_UPDATE','SUCCESS');
+  showModalStep('done');
+  buildTracker();
+  toast('Verified income received — MahaDBT form updated');
+}
+function renderLegacyPortal(){
+  const verified = mockDB1_MahaDBT.income!=null;
+  document.getElementById('lpIncome').textContent = verified? '₹'+mockDB1_MahaDBT.income.toLocaleString('en-IN') : 'Not verified';
+  const st=document.getElementById('lpStatus'); st.textContent=mockDB1_MahaDBT.incomeStatus; st.className='badge '+(verified?'ok':'warn');
+  document.getElementById('lpFetchBtn').style.display=verified?'none':'inline-block';
+  document.getElementById('lpTrackLink').style.display=verified?'inline-block':'none';
+  document.getElementById('lpContinue').disabled=!verified;
 }
 function buildTracker(){
-  markTrace('Workflow'); markTrace('Audit'); logAudit('System','Workflow complete','SUCCESS');
-  const steps=['Application submitted','Identity verified','Consent approved','Education verified (MahaDBT)','Certificate verified (Aaple Sarkar)','Skills retrieved (MahaSwayam)','Employment application processing','Final notification'];
-  const flow=document.getElementById('trackerFlow'); flow.innerHTML='';
-  steps.forEach((s,i)=>{
-    const row=document.createElement('div'); row.className='step'; const done=i<steps.length-1;
-    row.innerHTML=`<span class="dot ${done?'done':'pending'}">${done?'✓':'○'}</span> ${s}`; flow.appendChild(row);
-  });
-  setTimeout(()=>toast('Notification: your application has moved to employment processing'),400);
+  document.getElementById('trackerStatus').textContent='In process'; document.getElementById('offStatus').textContent='In process';
+  const steps=['Application started','Fetch requested via MahaSetu','Consent approved','Income verified (Aaple Sarkar)','Canonical mapping complete','MahaDBT form updated'];
+  document.getElementById('trackerFlow').innerHTML = steps.map(s=>`<div class="step"><span class="dot done">✓</span> ${s}</div>`).join('');
 }
-function togglePanel(){ const h=document.getElementById('demoHint'); if(h) h.style.display='none'; const p=document.getElementById('demoPanel'); p.style.display=p.style.display==='block'?'none':'block'; }
-function resetDemo(){
-  state={corrId:null,consents:{mahadbt:null,aaple:null,mahaswayam:null},xmlFailMode:false,valFailMode:false};
-  exceptions=[]; auditLog=[]; notifications=[];
-  document.getElementById('trace').style.display='none';
-  document.getElementById('corrBadge').style.display='none';
-  document.getElementById('roleBadge').style.display='none';
-  document.getElementById('notifCount').style.display='none';
-  document.getElementById('auditBody').innerHTML=''; renderExc(); renderNotif();
-  document.getElementById('excCount2').textContent='0';
-  go('v-login'); togglePanel(); toast('Demo reset');
+
+/* ===================== MDM / NEW CITIZEN / AUTO-PROVISIONING ===================== */
+function renderMdm(){
+  const box=document.getElementById('mswBox');
+  if(mockDB3_MahaSwayam.linked){
+    box.innerHTML=`<b>MahaSwayam</b>${mockDB3_MahaSwayam.candidateId}<br><span class="badge ok" style="margin-top:6px;display:inline-block;">✓ ${mockDB3_MahaSwayam.candidateId==='CAN-999'?'Auto-Provisioned':'Linked'}</span>`;
+    document.getElementById('provWrap').style.display='none';
+  } else {
+    box.innerHTML=`<b>MahaSwayam</b>Not Linked<br><span class="badge warn" style="margin-top:6px;display:inline-block;">⚠ New citizen scenario</span>`;
+    document.getElementById('provWrap').style.display='block';
+    document.getElementById('provStatus').innerHTML='';
+  }
 }
-function simDeny(){ togglePanel(); go('v-cat'); requestService(); setTimeout(()=>{setConsent('mahadbt',true);setConsent('aaple',false);},400); }
-function simExpired(){ state.expiredDemo=true; togglePanel(); go('v-cat'); requestService(); }
-function simXmlFail(){ state.xmlFailMode=true; togglePanel(); toast('MahaDBT will time out on next fetch'); }
-function simValFail(){ state.valFailMode=true; togglePanel(); toast('Aaple Sarkar will return invalid income on next fetch'); }
-function runAuto(){
-  togglePanel(); resetDemo();
-  setTimeout(()=>login('citizen'),300);
-  setTimeout(()=>go('v-cat'),900);
-  setTimeout(()=>requestService(),1500);
-  setTimeout(()=>{setConsent('mahadbt',true);setConsent('aaple',true);setConsent('mahaswayam',true);},2400);
-  setTimeout(()=>go('v-mdm'),3200);
-  setTimeout(()=>go('v-exchange'),4200);
-  setTimeout(()=>runExchange(),4800);
+function toggleNewCitizen(el){ mockDB3_MahaSwayam={linked:!el.checked,candidateId:'CAN-55',skills:['Java','SQL']}; renderMdm(); }
+function autoProvision(){
+  document.getElementById('provBtn').disabled=true;
+  document.getElementById('provStatus').innerHTML='<span class="badge warn">⏳ Creating MahaSwayam profile…</span>';
+  setTimeout(()=>{
+    mockDB3_MahaSwayam={linked:true,candidateId:'CAN-999',skills:[]};
+    auditEvent('MahaSwayam · AUTO_PROVISION (SIMULATED)','SUCCESS');
+    renderMdm(); toast('MahaSwayam profile auto-provisioned: CAN-999');
+  },900);
 }
-buildNav(); renderExc(); renderNotif();
+
+/* ===================== DEMO MODE ===================== */
+function togglePanel(){ const p=document.getElementById('demoPanel'); p.style.display=p.style.display==='block'?'none':'block'; }
+function resetDemo(){ location.reload(); }
+function simDeny(){ togglePanel(); openFetchModal(); setTimeout(()=>decideConsent(false),500); }
+function simExpired(){ togglePanel(); openFetchModal(); document.getElementById('expiredNote').style.display='inline-block'; }
+function simConnFail(){ demo.connFailMode=true; togglePanel(); toast('Aaple Sarkar connector will time out on next fetch'); }
+function simValFail(){ demo.valFailMode=true; togglePanel(); toast('Aaple Sarkar will return invalid income on next fetch'); }
+function runAuto(){ togglePanel(); openFetchModal(); setTimeout(()=>decideConsent(true),1200); }
+
+buildNav(); renderExc(); renderNotif(); renderMdm(); buildTracker(); document.getElementById('trackerStatus').textContent='Draft'; document.getElementById('offStatus').textContent='Draft';
+document.getElementById('trackerFlow').innerHTML='<div class="step"><span class="dot done">✓</span> Application started</div><div class="step"><span class="dot">○</span> Awaiting income verification</div>';
 </script>
 </body>
 </html>
